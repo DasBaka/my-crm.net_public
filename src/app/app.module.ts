@@ -18,9 +18,60 @@ import { RestaurantsComponent } from './main/restaurants/restaurants.component';
 import { AsideTreeComponent } from './navigation/aside-tree/aside-tree.component';
 import { MatTreeModule } from '@angular/material/tree';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddRestaurantComponent } from './main/restaurants/add-restaurant/add-restaurant.component';
+import { TableComponent } from './main/restaurants/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, DashboardComponent, RestaurantsComponent, AsideTreeComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTreeModule],
+  declarations: [
+    AppComponent,
+    NavigationComponent,
+    DashboardComponent,
+    RestaurantsComponent,
+    AsideTreeComponent,
+    AddRestaurantComponent,
+    TableComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatTreeModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseCrm)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseClone, 'clone')),
+    provideAuth(() => getAuth()),
+    provideAuth(() => getAuth(getApp('clone'))),
+    provideFirestore(() => getFirestore()),
+    provideFirestore(() => getFirestore(getApp('clone'))),
+    provideStorage(() => getStorage()),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
