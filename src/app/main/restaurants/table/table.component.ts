@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -24,24 +31,9 @@ export class TableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<TableItem>;
   dataSource = new TableDataSource();
 
-  restaurantStore!: Firestore;
-  restaurantsCollection$!: Observable<any[]>;
+  @Input() restaurantsCollection$!: Observable<any[]>;
 
-  constructor(
-    private crmFirestore: FirebaseApp,
-    private allFirebaseApps: FirebaseApps,
-    private crmAuth: Auth,
-    private authInstances: AuthInstances
-  ) {
-    let restaurantsApp = this.allFirebaseApps.find(
-      (obj) => obj.name === 'clone'
-    );
-    if (restaurantsApp) {
-      this.restaurantStore = getFirestore(restaurantsApp);
-      const coll = collection(this.restaurantStore, 'restaurants');
-      this.restaurantsCollection$ = collectionData(coll) as Observable<any[]>;
-    }
-  }
+  constructor() {}
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
