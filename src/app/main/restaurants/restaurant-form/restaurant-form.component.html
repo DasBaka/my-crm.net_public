@@ -6,6 +6,8 @@
     <mat-card-header>
       <mat-card-title>Add new restaurant</mat-card-title>
     </mat-card-header>
+
+    <!--  General -->
     <mat-card-content>
       <div formGroupName="general">
         <div class="row">
@@ -56,6 +58,7 @@
               class="full-width">
               <mat-label>Email</mat-label>
               <input
+                required
                 matInput
                 placeholder="Contact email address"
                 formControlName="mail" />
@@ -65,9 +68,27 @@
               </mat-error>
             </mat-form-field>
           </div>
+          <div class="col">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Telephone</mat-label>
+              <input
+                matInput
+                required
+                placeholder="Contact telephone number"
+                formControlName="phone" />
+              <mat-error *ngIf="newRestaurantForm.get('general.phone')?.errors">
+                Phone is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
+
       <mat-divider></mat-divider>
+
+      <!-- Address -->
       <div formGroupName="address">
         <div class="row">
           <mat-card-title-group>
@@ -161,10 +182,11 @@
           </div>
         </div>
       </div>
+
       <mat-divider></mat-divider>
-      <div
-        class="row"
-        formGroupName="delivery">
+
+      <!-- Opening Hours -->
+      <div class="row">
         <mat-card-title-group>
           <mat-card-title>Opening hours</mat-card-title>
         </mat-card-title-group>
@@ -250,7 +272,10 @@
           </div>
         </mat-selection-list>
       </div>
+
       <mat-divider></mat-divider>
+
+      <!-- Delivery -->
       <div
         class="row"
         formGroupName="delivery">
@@ -272,7 +297,7 @@
           >
           <mat-error
             *ngIf="newRestaurantForm.get('delivery.min')?.hasError('required')">
-            A minimum is <strong>required</strong> or 0,00€.
+            A minimum is <strong>required</strong> or 0,00€
           </mat-error>
         </mat-form-field>
         <mat-form-field
@@ -294,11 +319,12 @@
             *ngIf="
               newRestaurantForm.get('delivery.costs')?.hasError('required')
             ">
-            Delivery cost is <strong>required</strong> or 0,00€.
+            Delivery cost is <strong>required</strong> or 0,00€
           </mat-error>
         </mat-form-field>
       </div>
     </mat-card-content>
+
     <mat-card-actions>
       <button
         mat-raised-button

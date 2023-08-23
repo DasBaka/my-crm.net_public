@@ -22,7 +22,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddRestaurantComponent } from './main/restaurants/add-restaurant/add-restaurant.component';
 import { TableComponent } from './main/restaurants/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -33,6 +32,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { RestaurantDetailsComponent } from './main/restaurants/restaurant-details/restaurant-details.component';
+import { RestaurantFormComponent } from './main/restaurants/restaurant-form/restaurant-form.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +42,9 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
     DashboardComponent,
     RestaurantsComponent,
     AsideTreeComponent,
-    AddRestaurantComponent,
     TableComponent,
+    RestaurantDetailsComponent,
+    RestaurantFormComponent,
   ],
   imports: [
     BrowserModule,

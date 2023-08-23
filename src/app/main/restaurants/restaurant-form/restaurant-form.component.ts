@@ -1,25 +1,28 @@
-import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   DocumentReference,
   Firestore,
   addDoc,
   collection,
-  getDoc,
-  setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
 
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-restaurant',
-  templateUrl: './add-restaurant.component.html',
-  styleUrls: ['./add-restaurant.component.scss'],
+  selector: 'app-restaurant-form',
+  templateUrl: './restaurant-form.component.html',
+  styleUrls: ['./restaurant-form.component.scss'],
 })
-export class AddRestaurantComponent {
+export class RestaurantFormComponent {
   @Input() restaurantStore!: Firestore;
 
   openingHours = [
+    {
+      day: 'Sunday',
+      isOpen: false,
+      time: { from: '4:00 PM', to: '5:00 PM' },
+    },
     {
       day: 'Monday',
       isOpen: false,
@@ -50,11 +53,6 @@ export class AddRestaurantComponent {
       isOpen: false,
       time: { from: '4:00 PM', to: '5:00 PM' },
     },
-    {
-      day: 'Sunday',
-      isOpen: false,
-      time: { from: '4:00 PM', to: '5:00 PM' },
-    },
   ];
 
   private fb = inject(FormBuilder);
@@ -69,6 +67,10 @@ export class AddRestaurantComponent {
           Validators.email,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
         ]),
+      ],
+      phone: [
+        null,
+        Validators.compose([Validators.required, Validators.pattern('[0-9]*')]),
       ],
     }),
     address: this.fb.group({

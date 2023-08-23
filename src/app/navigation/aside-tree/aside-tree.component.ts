@@ -86,7 +86,7 @@ export class AsideTreeComponent {
     return node.children;
   }
 
-  log(node: FlatTreeNode) {
+  navigate(node: FlatTreeNode) {
     this.router.navigate(['/' + node.name]);
     return false;
   }

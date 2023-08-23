@@ -7,15 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { AddRestaurantComponent } from './add-restaurant.component';
+import { RestaurantFormComponent } from './restaurant-form.component';
 
 describe('AddRestaurantComponent', () => {
-  let component: AddRestaurantComponent;
-  let fixture: ComponentFixture<AddRestaurantComponent>;
+  let component: RestaurantFormComponent;
+  let fixture: ComponentFixture<RestaurantFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AddRestaurantComponent],
+      declarations: [RestaurantFormComponent],
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
@@ -24,12 +24,12 @@ describe('AddRestaurantComponent', () => {
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
-      ]
+      ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddRestaurantComponent);
+    fixture = TestBed.createComponent(RestaurantFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
