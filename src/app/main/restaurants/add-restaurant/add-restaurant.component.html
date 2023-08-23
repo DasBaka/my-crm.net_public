@@ -2,104 +2,301 @@
   [formGroup]="newRestaurantForm"
   novalidate
   (ngSubmit)="onSubmit()">
-  <mat-card class="shipping-card">
+  <mat-card class="card">
     <mat-card-header>
       <mat-card-title>Add new restaurant</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="Restaurant"
-              formControlName="restaurant" />
-          </mat-form-field>
+      <div formGroupName="general">
+        <div class="row">
+          <mat-card-title-group>
+            <mat-card-title>General</mat-card-title>
+          </mat-card-title-group>
+          <div class="col-6">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Restaurant</mat-label>
+              <input
+                matInput
+                placeholder="Restaurant's name"
+                formControlName="restaurant" />
+              <mat-error
+                *ngIf="
+                  newRestaurantForm
+                    .get('general.restaurant')
+                    ?.hasError('required')
+                ">
+                Restaurant is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Owner</mat-label>
+              <input
+                matInput
+                placeholder="Full name"
+                formControlName="owner" />
+              <mat-error
+                *ngIf="
+                  newRestaurantForm.get('general.owner')?.hasError('required')
+                ">
+                Owner is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="Contact email address"
+                formControlName="mail" />
+              <mat-error *ngIf="newRestaurantForm.get('general.mail')?.errors">
+                A <strong>valid</strong> email address is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="Owner: First name"
-              formControlName="firstName" />
-            <mat-error
-              *ngIf="
-                newRestaurantForm.controls['firstName'].hasError('required')
-              ">
-              First name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+      <mat-divider></mat-divider>
+      <div formGroupName="address">
+        <div class="row">
+          <mat-card-title-group>
+            <mat-card-title>Address</mat-card-title>
+          </mat-card-title-group>
+          <div class="col-6">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Street</mat-label>
+              <input
+                matInput
+                placeholder="Address"
+                formControlName="street" />
+              <mat-error
+                *ngIf="
+                  newRestaurantForm.get('address.street')?.hasError('required')
+                ">
+                Street is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-2">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Nr</mat-label>
+              <input
+                matInput
+                placeholder="House number"
+                formControlName="house" />
+              <mat-error
+                *ngIf="
+                  newRestaurantForm.get('address.house')?.hasError('required')
+                ">
+                House number is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="Owner: Last name"
-              formControlName="lastName" />
-            <mat-error
-              *ngIf="
-                newRestaurantForm.controls['lastName'].hasError('required')
-              ">
-              Last name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>City</mat-label>
+              <input
+                matInput
+                placeholder="City"
+                formControlName="city" />
+              <mat-error
+                *ngIf="
+                  newRestaurantForm.get('address.city')?.hasError('required')
+                ">
+                City is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-2">
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+              <mat-label>Postal Code</mat-label>
+              <input
+                matInput
+                #postalCode
+                maxlength="5"
+                minlength="5"
+                inputmode="numeric"
+                placeholder="_ _ _ _ _"
+                type="text"
+                formControlName="postalCode" />
+              <mat-hint align="end">{{ postalCode.value.length }} / 5</mat-hint>
+              <mat-error
+                *ngIf="
+                  newRestaurantForm
+                    .get('address.postalCode')
+                    ?.hasError('required')
+                ">
+                Postal code is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  newRestaurantForm
+                    .get('address.postalCode')
+                    ?.hasError('pattern')
+                ">
+                Postal code must have <strong>five digits</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea
-              matInput
-              placeholder="Address"
-              formControlName="address"></textarea>
-            <mat-error
-              *ngIf="
-                newRestaurantForm.controls['address'].hasError('required')
-              ">
-              Address is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
+      <mat-divider></mat-divider>
       <div
         class="row"
-        *ngIf="hasUnitNumber">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea
-              matInput
-              placeholder="Address 2"
-              formControlName="address2"></textarea>
-          </mat-form-field>
-        </div>
+        formGroupName="delivery">
+        <mat-card-title-group>
+          <mat-card-title>Opening hours</mat-card-title>
+        </mat-card-title-group>
+        <mat-selection-list
+          #time
+          class="col-6">
+          <div
+            class="row"
+            *ngFor="let day of openingHours; let i = index">
+            <mat-list-option
+              #option
+              style="height: fit-content"
+              (click)="day.isOpen = option.selected"
+              [disableRipple]="true"
+              [checkboxPosition]="'before'"
+              [value]="day.day">
+              <div class="row">
+                <div class="col">{{ day.day }}</div>
+                <div
+                  class="col d-flex"
+                  (click)="$event.stopPropagation()">
+                  <span
+                    [style.color]="
+                      !option.selected ? 'rgba(0, 0, 0, 0.38)' : 'initial'
+                    "
+                    >From</span
+                  >
+                  <mat-form-field class="mx-3">
+                    <input
+                      matInput
+                      name="selected_time_A"
+                      [ngxMatTimepicker]="pickerA"
+                      [placeholder]="day.time.from"
+                      readonly
+                      [disabled]="!option.selected" />
+                    <mat-icon
+                      matSuffix
+                      (click)="option.selected && pickerA.open()"
+                      [style.color]="
+                        !option.selected ? 'rgba(0, 0, 0, 0.38)' : 'initial'
+                      ">
+                      watch_later
+                    </mat-icon>
+                  </mat-form-field>
+                  <ngx-mat-timepicker
+                    #pickerA
+                    [defaultTime]="day.time.from"
+                    (timeChanged)="
+                      day.time.from = $event.toString()
+                    "></ngx-mat-timepicker>
+                  <span
+                    [style.color]="
+                      !option.selected ? 'rgba(0, 0, 0, 0.38)' : 'initial'
+                    "
+                    >to</span
+                  >
+                  <mat-form-field class="mx-3">
+                    <input
+                      matInput
+                      name="selected_time_A"
+                      [ngxMatTimepicker]="pickerB"
+                      [placeholder]="day.time.to"
+                      readonly
+                      [disabled]="!option.selected" />
+                    <mat-icon
+                      matSuffix
+                      (click)="option.selected && pickerB.open()"
+                      [style.color]="
+                        !option.selected ? 'rgba(0, 0, 0, 0.38)' : 'initial'
+                      ">
+                      watch_later
+                    </mat-icon>
+                  </mat-form-field>
+                  <ngx-mat-timepicker
+                    #pickerB
+                    [defaultTime]="day.time.from"
+                    (timeChanged)="
+                      day.time.from = $event.toString()
+                    "></ngx-mat-timepicker>
+                </div>
+              </div>
+            </mat-list-option>
+          </div>
+        </mat-selection-list>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="City"
-              formControlName="city" />
-            <mat-error
-              *ngIf="newRestaurantForm.controls['city'].hasError('required')">
-              City is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              #postalCode
-              maxlength="5"
-              placeholder="Postal Code"
-              type="number"
-              formControlName="postalCode" />
-            <mat-hint align="end">{{ postalCode.value.length }} / 5</mat-hint>
-          </mat-form-field>
-        </div>
+      <mat-divider></mat-divider>
+      <div
+        class="row"
+        formGroupName="delivery">
+        <mat-card-title-group>
+          <mat-card-title>Delivery</mat-card-title>
+        </mat-card-title-group>
+        <mat-form-field
+          appearance="outline"
+          class="col-2">
+          <mat-label>Minimum</mat-label>
+          <input
+            matInput
+            placeholder="Order's minimum cost"
+            formControlName="min" />
+          <span
+            matSuffix
+            style="height: 1.5rem">
+            , 00 €</span
+          >
+          <mat-error
+            *ngIf="newRestaurantForm.get('delivery.min')?.hasError('required')">
+            A minimum is <strong>required</strong> or 0,00€.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field
+          appearance="outline"
+          class="col-2">
+          <mat-label>Costs</mat-label>
+          <input
+            matInput
+            placeholder="Delivery costs"
+            type="number"
+            class="text-end align-text-bottom d-flex"
+            formControlName="costs" />
+          <span
+            matSuffix
+            style="height: 1.5rem">
+            , 00 €</span
+          >
+          <mat-error
+            *ngIf="
+              newRestaurantForm.get('delivery.costs')?.hasError('required')
+            ">
+            Delivery cost is <strong>required</strong> or 0,00€.
+          </mat-error>
+        </mat-form-field>
       </div>
     </mat-card-content>
     <mat-card-actions>

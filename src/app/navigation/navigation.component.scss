@@ -11,7 +11,18 @@
 }
 
 .mat-toolbar.mat-primary {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+mat-sidenav-content {
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
