@@ -42,4 +42,19 @@ export class TableComponent implements AfterViewInit {
     });
     return false;
   }
+
+  isOpen(day: { open: boolean; time: { from: string; to: string } }) {
+    if (!day.open) {
+      let now = new Date();
+      now.setDate(1);
+      now.setMonth(0);
+      now.setFullYear(2000);
+      let from = new Date('01/01/2000 ' + day.time.from);
+      let to = new Date('01/01/2000 ' + day.time.to);
+      if (now.getTime() > from.getTime() && now.getTime() < to.getTime()) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
