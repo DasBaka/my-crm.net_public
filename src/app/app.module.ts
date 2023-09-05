@@ -15,9 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { RestaurantsComponent } from './main/restaurants/restaurants.component';
-import { AsideTreeComponent } from './navigation/aside-tree/aside-tree.component';
-import { MatTreeModule } from '@angular/material/tree';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
@@ -32,8 +30,13 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { RestaurantDetailsComponent } from './main/restaurants/restaurant-details/restaurant-details.component';
-import { RestaurantFormComponent } from './main/restaurants/restaurant-form/restaurant-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DishesOverviewComponent } from './main/dishes/dishes-overview/dishes-overview.component';
+import { DishDetailsComponent } from './main/dishes/dish-details/dish-details.component';
+import { UsersComponent } from './main/users/users.component';
+import { OrdersComponent } from './main/orders/orders.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SettingsComponent } from './main/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +44,12 @@ import { RestaurantFormComponent } from './main/restaurants/restaurant-form/rest
     NavigationComponent,
     DashboardComponent,
     RestaurantsComponent,
-    AsideTreeComponent,
     TableComponent,
-    RestaurantDetailsComponent,
-    RestaurantFormComponent,
+    DishesOverviewComponent,
+    DishDetailsComponent,
+    UsersComponent,
+    OrdersComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,6 @@ import { RestaurantFormComponent } from './main/restaurants/restaurant-form/rest
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MatTreeModule,
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
@@ -67,7 +71,9 @@ import { RestaurantFormComponent } from './main/restaurants/restaurant-form/rest
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatDialogModule,
     NgxMatTimepickerModule,
+    MatExpansionModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseCrm)),
     provideFirebaseApp(() => initializeApp(environment.firebaseClone, 'clone')),
     provideAuth(() => getAuth()),
@@ -75,6 +81,7 @@ import { RestaurantFormComponent } from './main/restaurants/restaurant-form/rest
     provideFirestore(() => getFirestore()),
     provideFirestore(() => getFirestore(getApp('clone'))),
     provideStorage(() => getStorage()),
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

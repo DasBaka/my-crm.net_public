@@ -4,32 +4,32 @@
   (ngSubmit)="onSubmit()">
   <mat-card class="card">
     <mat-card-header>
-      <mat-card-title>Add new restaurant</mat-card-title>
+      <mat-card-title>Restaurant settings</mat-card-title>
     </mat-card-header>
 
     <!--  General -->
     <mat-card-content>
-      <div formGroupName="general">
+      <div formGroupName="responsible">
         <div class="row">
           <mat-card-title-group>
-            <mat-card-title>General</mat-card-title>
+            <mat-card-title>Person in charge</mat-card-title>
           </mat-card-title-group>
           <div class="col-6">
             <mat-form-field
               appearance="outline"
               class="full-width">
-              <mat-label>Restaurant</mat-label>
+              <mat-label>Firstname</mat-label>
               <input
                 matInput
-                placeholder="Restaurant's name"
-                formControlName="restaurant" />
+                placeholder="Responsible's firstname"
+                formControlName="firstname" />
               <mat-error
                 *ngIf="
                   newRestaurantForm
-                    .get('general.restaurant')
+                    .get('responsible.firstname')
                     ?.hasError('required')
                 ">
-                Restaurant is <strong>required</strong>
+                Firstname is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -37,20 +37,24 @@
             <mat-form-field
               appearance="outline"
               class="full-width">
-              <mat-label>Owner</mat-label>
+              <mat-label>Lastname</mat-label>
               <input
                 matInput
-                placeholder="Full name"
-                formControlName="owner" />
+                placeholder="Responsible's lastname"
+                formControlName="lastname" />
               <mat-error
                 *ngIf="
-                  newRestaurantForm.get('general.owner')?.hasError('required')
+                  newRestaurantForm
+                    .get('responsible.lastname')
+                    ?.hasError('required')
                 ">
-                Owner is <strong>required</strong>
+                Lastname is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>
         </div>
+      </div>
+      <div formGroupName="contact">
         <div class="row">
           <div class="col-6">
             <mat-form-field
@@ -62,7 +66,7 @@
                 matInput
                 placeholder="Contact email address"
                 formControlName="mail" />
-              <mat-error *ngIf="newRestaurantForm.get('general.mail')?.errors">
+              <mat-error *ngIf="newRestaurantForm.get('contact.mail')?.errors">
                 A <strong>valid</strong> email address is
                 <strong>required</strong>
               </mat-error>
@@ -78,7 +82,7 @@
                 required
                 placeholder="Contact telephone number"
                 formControlName="phone" />
-              <mat-error *ngIf="newRestaurantForm.get('general.phone')?.errors">
+              <mat-error *ngIf="newRestaurantForm.get('contact.phone')?.errors">
                 Phone is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -186,22 +190,29 @@
       <mat-divider></mat-divider>
 
       <!-- Opening Hours -->
-      <div class="row">
+      <!-- <div
+        class="row"
+        formGroupName="delivery">
         <mat-card-title-group>
           <mat-card-title>Opening hours</mat-card-title>
         </mat-card-title-group>
         <mat-selection-list
           #time
-          class="col-6">
+          class="col-6"
+          *ngIf="newRestaurantForm">
           <div
             class="row"
-            *ngFor="let day of openingHours; let i = index">
+            *ngFor="
+              let day of newRestaurantForm.controls['delivery'].value.hours;
+              let i = index
+            ">
             <mat-list-option
               #option
               style="height: fit-content"
               (click)="day.isOpen = option.selected"
               [disableRipple]="true"
               [checkboxPosition]="'before'"
+              [selected]="day.isOpen"
               [value]="day.day">
               <div class="row">
                 <div class="col">{{ day.day }}</div>
@@ -270,59 +281,9 @@
               </div>
             </mat-list-option>
           </div>
-        </mat-selection-list>
-      </div>
+        </mat-selection-list> -->
 
       <mat-divider></mat-divider>
-
-      <!-- Delivery -->
-      <div
-        class="row"
-        formGroupName="delivery">
-        <mat-card-title-group>
-          <mat-card-title>Delivery</mat-card-title>
-        </mat-card-title-group>
-        <mat-form-field
-          appearance="outline"
-          class="col-2">
-          <mat-label>Minimum</mat-label>
-          <input
-            matInput
-            placeholder="Order's minimum cost"
-            formControlName="min" />
-          <span
-            matSuffix
-            style="height: 1.5rem">
-            , 00 €</span
-          >
-          <mat-error
-            *ngIf="newRestaurantForm.get('delivery.min')?.hasError('required')">
-            A minimum is <strong>required</strong> or 0,00€
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field
-          appearance="outline"
-          class="col-2">
-          <mat-label>Costs</mat-label>
-          <input
-            matInput
-            placeholder="Delivery costs"
-            type="number"
-            class="text-end align-text-bottom d-flex"
-            formControlName="costs" />
-          <span
-            matSuffix
-            style="height: 1.5rem">
-            , 00 €</span
-          >
-          <mat-error
-            *ngIf="
-              newRestaurantForm.get('delivery.costs')?.hasError('required')
-            ">
-            Delivery cost is <strong>required</strong> or 0,00€
-          </mat-error>
-        </mat-form-field>
-      </div>
     </mat-card-content>
 
     <mat-card-actions>

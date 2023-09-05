@@ -6,25 +6,111 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <!--     <mat-nav-list>
+    <mat-toolbar
+      ><a href="/">T<small>ake</small>A<small>way</small>-CRM</a></mat-toolbar
+    >
+    <mat-nav-list>
+      <a
+        mat-list-item
+        href="dashboard"
+        (click)="setStep(0)"
+        >Dashboard</a
+      >
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel
+          [expanded]="step === 1"
+          (opened)="setStep(1)"
+          hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mdc-list-item__primary-text"
+              >Orders</mat-panel-title
+            >
+          </mat-expansion-panel-header>
+          <a
+            mat-list-item
+            [routerLink]="['orders']"
+            >Overview</a
+          >
+          <a
+            mat-list-item
+            [routerLink]="['orders']"
+            >Stats</a
+          >
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          [expanded]="step === 2"
+          (opened)="setStep(2)"
+          hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mdc-list-item__primary-text">
+              Users
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a
+            mat-list-item
+            [routerLink]="['users']"
+            >Overview</a
+          >
+        </mat-expansion-panel>
+
+        <mat-expansion-panel
+          [expanded]="step === 3"
+          (opened)="setStep(3)"
+          hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mdc-list-item__primary-text">
+              Dishes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a
+            mat-list-item
+            [routerLink]="['dishes/overview']"
+            >List</a
+          >
+          <a
+            mat-list-item
+            [routerLink]="['dishes/overview']"
+            >Tags</a
+          >
+          <a
+            mat-list-item
+            [routerLink]="['dishes/overview']"
+            >Stats</a
+          >
+        </mat-expansion-panel>
+        <mat-expansion-panel
+          [expanded]="step === 4"
+          (opened)="setStep(4)"
+          hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mdc-list-item__primary-text">
+              Restaurant
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a
+            mat-list-item
+            [routerLink]="['users']"
+            >Stats</a
+          >
+          <a
+            mat-list-item
+            [routerLink]="['settings']"
+            >Responsible</a
+          >
+          <a
+            mat-list-item
+            [routerLink]="['users']"
+            >Delivery hours</a
+          >
+        </mat-expansion-panel>
+      </mat-accordion>
       <a
         mat-list-item
         href="#"
-        >Link 1</a
+        >Logout</a
       >
-      <a
-        mat-list-item
-        href="#"
-        >Link 2</a
-      >
-      <a
-        mat-list-item
-        href="#"
-        >Link 3</a
-      >
-    </mat-nav-list> -->
-    <app-aside-tree></app-aside-tree>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">

@@ -1,4 +1,9 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 bg-mat-white">
+  <button
+    style="margin: 1rem"
+    (click)="router.navigate(['../add'], { relativeTo: route })">
+    New Restaurant</button
+  >Blablaautocomplete
   <table
     mat-table
     class="full-width-table"
@@ -84,14 +89,17 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      (click)="navigate(row.id)"></tr>
+      (click)="router.navigate(['../details'], {
+        relativeTo: route,
+        state: { id: row.id }, 
+      })"></tr>
   </table>
 
   <mat-paginator
     #paginator
     [length]="0"
     [pageIndex]="0"
-    [pageSize]="10"
+    [pageSize]="5"
     [pageSizeOptions]="[5, 10, 20]"
     aria-label="Select page">
   </mat-paginator>

@@ -7,15 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { RestaurantFormComponent } from './restaurant-form.component';
+import { SettingsComponent } from './settings.component';
 
-describe('AddRestaurantComponent', () => {
-  let component: RestaurantFormComponent;
-  let fixture: ComponentFixture<RestaurantFormComponent>;
+describe('SettingsComponent', () => {
+  let component: SettingsComponent;
+  let fixture: ComponentFixture<SettingsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [RestaurantFormComponent],
+      declarations: [SettingsComponent],
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
@@ -29,12 +29,12 @@ describe('AddRestaurantComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RestaurantFormComponent);
+    fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
