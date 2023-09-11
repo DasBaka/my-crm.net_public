@@ -4,19 +4,17 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-// TODO: Replace this with your own data model type
-export interface TableItem {
-  name: string;
-  id: number;
+export interface DishesOverviewItem {
+  tag: string;
 }
 
 /**
- * Data source for the Table view. This class should
+ * Data source for the DishesOverview view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class TableDataSource extends DataSource<TableItem> {
-  data!: TableItem[];
+export class DishesOverviewDataSource extends DataSource<DishesOverviewItem> {
+  data!: DishesOverviewItem[];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -29,7 +27,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<TableItem[]> {
+  connect(): Observable<DishesOverviewItem[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
@@ -59,7 +57,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: TableItem[]): TableItem[] {
+  private getPagedData(data: DishesOverviewItem[]): DishesOverviewItem[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -72,7 +70,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: TableItem[]): TableItem[] {
+  private getSortedData(data: DishesOverviewItem[]): DishesOverviewItem[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -80,10 +78,8 @@ export class TableDataSource extends DataSource<TableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name':
-          return compare(a.name, b.name, isAsc);
-        case 'id':
-          return compare(+a.id, +b.id, isAsc);
+        case 'tag':
+          return compare(a.tag, b.tag, isAsc);
         default:
           return 0;
       }

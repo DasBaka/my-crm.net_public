@@ -14,13 +14,11 @@ import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { RestaurantsComponent } from './main/restaurants/restaurants.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TableComponent } from './main/restaurants/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -31,25 +29,24 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DishesOverviewComponent } from './main/dishes/dishes-overview/dishes-overview.component';
-import { DishDetailsComponent } from './main/dishes/dish-details/dish-details.component';
 import { UsersComponent } from './main/users/users.component';
 import { OrdersComponent } from './main/orders/orders.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SettingsComponent } from './main/settings/settings.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { DishesOverviewComponent } from './main/dishes/dishes-overview/dishes-overview.component';
+import { TagsComponent } from './main/dishes/tags/tags.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     DashboardComponent,
-    RestaurantsComponent,
-    TableComponent,
-    DishesOverviewComponent,
-    DishDetailsComponent,
     UsersComponent,
     OrdersComponent,
     SettingsComponent,
+    DishesOverviewComponent,
+    TagsComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,12 +73,12 @@ import { SettingsComponent } from './main/settings/settings.component';
     MatExpansionModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseCrm)),
     provideFirebaseApp(() => initializeApp(environment.firebaseClone, 'clone')),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     provideAuth(() => getAuth()),
     provideAuth(() => getAuth(getApp('clone'))),
-    provideFirestore(() => getFirestore()),
-    provideFirestore(() => getFirestore(getApp('clone'))),
-    provideStorage(() => getStorage()),
     DragDropModule,
+    MatTreeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

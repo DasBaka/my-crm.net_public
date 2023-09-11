@@ -1,9 +1,13 @@
-import { AfterViewInit, Component, Input, inject } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { AfterViewInit, Component, inject } from '@angular/core';
+import {
+  DocumentReference,
+  doc,
+  getDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RestaurantsDataService } from 'src/app/restaurants-data.service';
+import { FirestoreDataService } from 'src/app/firestore-data.service';
 import { Restaurant } from 'src/models/classes/restaurant.class';
 import { RestaurantProfile } from 'src/models/interfaces/restaurant-profile.interface';
 
@@ -13,25 +17,21 @@ import { RestaurantProfile } from 'src/models/interfaces/restaurant-profile.inte
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements AfterViewInit {
-  @Input() restaurantStore!: Firestore;
-  dataService: RestaurantsDataService = inject(RestaurantsDataService);
+  dataService: FirestoreDataService = inject(FirestoreDataService);
   restaurant!: RestaurantProfile;
+  docRef!: DocumentReference;
   dataToEdit = new Restaurant();
-  id: string | undefined;
 
   private fb = inject(FormBuilder);
   newRestaurantForm!: FormGroup;
 
-  constructor(public router: Router, public route: ActivatedRoute) {
-    this.id = window.history.state.id;
+  constructor() {
     this.initForm();
   }
 
   async ngAfterViewInit(): Promise<void> {
-    if (this.id) {
-      await this.getEditable(this.id);
-      this.initForm();
-    }
+    await this.getEditable();
+    this.initForm();
   }
 
   initForm() {
@@ -43,10 +43,10 @@ export class SettingsComponent implements AfterViewInit {
     });
   }
 
-  async getEditable(id: string) {
-    this.restaurant = (await this.dataService.getRestaurantDetails(
-      id
-    )) as RestaurantProfile;
+  async getEditable() {
+    this.restaurant = (await this.getRestaurantDetails()) as RestaurantProfile;
+    console.log(this.restaurant);
+
     this.dataToEdit = new Restaurant(this.restaurant);
   }
 
@@ -87,21 +87,24 @@ export class SettingsComponent implements AfterViewInit {
   }
 
   async onSubmit(): Promise<void> {
-    if (this.id) {
-      this.dataService
-        .updateEdittedDoc(this.id, this.newRestaurantForm.value)
-        .then(() => {
-          this.router.navigate(['../'], {
-            relativeTo: this.route,
-            state: { id: this.id },
-          });
-        });
-    } else {
-      this.dataService.addNewDoc(this.newRestaurantForm.value).then(() => {
-        this.router.navigate(['../'], {
-          relativeTo: this.route,
-        });
-      });
+    if (this.newRestaurantForm.valid) {
+      await updateDoc(this.docRef, this.newRestaurantForm.value);
+      console.log('updated');
+    }
+  }
+
+  async getRestaurantDetails() {
+    this.docRef = doc(this.dataService.fs, 'restaurant/restaurant-data');
+    try {
+      const docSnap = await getDoc(this.docRef);
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      return;
     }
   }
 }
