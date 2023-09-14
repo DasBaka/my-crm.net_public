@@ -1,13 +1,6 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import {
-  DocumentReference,
-  doc,
-  getDoc,
-  updateDoc,
-} from '@angular/fire/firestore';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirestoreDataService } from 'src/app/firestore-data.service';
+import { FirestoreDataService } from 'src/app/core/firestore-data.service';
 import { Restaurant } from 'src/models/classes/restaurant.class';
 import { RestaurantProfile } from 'src/models/interfaces/restaurant-profile.interface';
 
@@ -19,7 +12,6 @@ import { RestaurantProfile } from 'src/models/interfaces/restaurant-profile.inte
 export class SettingsComponent implements AfterViewInit {
   dataService: FirestoreDataService = inject(FirestoreDataService);
   restaurant!: RestaurantProfile;
-  docRef!: DocumentReference;
   dataToEdit = new Restaurant();
 
   private fb = inject(FormBuilder);
@@ -44,9 +36,9 @@ export class SettingsComponent implements AfterViewInit {
   }
 
   async getEditable() {
-    this.restaurant = (await this.getRestaurantDetails()) as RestaurantProfile;
-    console.log(this.restaurant);
-
+    this.restaurant = (await this.dataService.getDocData(
+      'restaurant/restaurant-data'
+    )) as RestaurantProfile;
     this.dataToEdit = new Restaurant(this.restaurant);
   }
 
@@ -88,23 +80,10 @@ export class SettingsComponent implements AfterViewInit {
 
   async onSubmit(): Promise<void> {
     if (this.newRestaurantForm.valid) {
-      await updateDoc(this.docRef, this.newRestaurantForm.value);
-      console.log('updated');
-    }
-  }
-
-  async getRestaurantDetails() {
-    this.docRef = doc(this.dataService.fs, 'restaurant/restaurant-data');
-    try {
-      const docSnap = await getDoc(this.docRef);
-      if (docSnap.exists()) {
-        return docSnap.data();
-      } else {
-        return;
-      }
-    } catch (error) {
-      console.log(error);
-      return;
+      await this.dataService.update(
+        'restaurant/restaurant-data',
+        this.newRestaurantForm.value
+      );
     }
   }
 }

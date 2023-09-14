@@ -4,13 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './modules/navigation/navigation.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { DashboardComponent } from './main/dashboard/dashboard.component';
+import { HomeComponent } from './modules/main/1-home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -29,24 +29,30 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { UsersComponent } from './main/users/users.component';
-import { OrdersComponent } from './main/orders/orders.component';
+import { UsersComponent } from './modules/main/3-users/users.component';
+import { OrdersComponent } from './modules/main/2-orders/orders.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { SettingsComponent } from './main/settings/settings.component';
+import { SettingsComponent } from './modules/main/5-restaurant/settings/settings.component';
 import { MatTreeModule } from '@angular/material/tree';
-import { DishesOverviewComponent } from './main/dishes/dishes-overview/dishes-overview.component';
-import { TagsComponent } from './main/dishes/tags/tags.component';
+import { DishesOverviewComponent } from './modules/main/4-dishes/dishes-overview/dishes-overview.component';
+import { TagsComponent } from './modules/main/4-dishes/tags/tags.component';
+import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.component';
+import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    DashboardComponent,
+    HomeComponent,
     UsersComponent,
     OrdersComponent,
     SettingsComponent,
     DishesOverviewComponent,
     TagsComponent,
+    DishListComponent,
+    AddDishComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +77,8 @@ import { TagsComponent } from './main/dishes/tags/tags.component';
     MatDialogModule,
     NgxMatTimepickerModule,
     MatExpansionModule,
+    MatChipsModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseCrm)),
     provideFirebaseApp(() => initializeApp(environment.firebaseClone, 'clone')),
     provideFirestore(() => getFirestore()),

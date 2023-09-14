@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApps } from '@angular/fire/app';
 import { collectionData } from '@angular/fire/firestore';
-import { Firestore, collection, getFirestore } from 'firebase/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  updateDoc,
+} from 'firebase/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,18 +25,14 @@ export class FirestoreDataService {
     let app = this.findApp();
     if (app) {
       this.fs = getFirestore(app);
-      this.dishColl$ = collectionData(
-        collection(this.fs, 'dishes')
-      ) as Observable<any[]>;
-      this.orderColl$ = collectionData(
-        collection(this.fs, 'orders')
-      ) as Observable<any[]>;
-      this.restaurantColl$ = collectionData(
-        collection(this.fs, 'restaurant')
-      ) as Observable<any[]>;
-      this.tagColl$ = collectionData(collection(this.fs, 'tags')) as Observable<
+      this.dishColl$ = collectionData(this.coll('dishes')) as Observable<any[]>;
+      this.orderColl$ = collectionData(this.coll('orders')) as Observable<
         any[]
       >;
+      this.restaurantColl$ = collectionData(
+        this.coll('restaurant')
+      ) as Observable<any[]>;
+      this.tagColl$ = collectionData(this.coll('tags')) as Observable<any[]>;
     }
   }
 
@@ -40,6 +43,29 @@ export class FirestoreDataService {
 
   coll(coll: string) {
     return collection(this.fs, coll);
+  }
+
+  async getDocData(id: string) {
+    const docRef = this.getDocRef(id);
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  }
+
+  getDocRef(id: string) {
+    return doc(this.fs, id);
+  }
+
+  async update(refId: string, data: any) {
+    return await updateDoc(this.getDocRef(refId), data);
   }
 
   /*

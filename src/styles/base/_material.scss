@@ -1,3 +1,5 @@
+@use 'sass:string';
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
@@ -23,6 +25,11 @@ $takeaway-clone-accent: mat.define-palette(
 // The warn palette is optional (defaults to red).
 $takeaway-clone-warn: mat.define-palette(mat.$red-palette);
 
+$custom-typography: mat.define-typography-config(
+  $font-family:
+    "'Roboto', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial',  sans-serif",
+);
+
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $takeaway-clone-theme: mat.define-light-theme(
@@ -33,6 +40,7 @@ $takeaway-clone-theme: mat.define-light-theme(
       accent: $takeaway-clone-accent,
       warn: $takeaway-clone-warn,
     ),
+    typography: $custom-typography,
   )
 );
 
@@ -58,4 +66,36 @@ $takeaway-clone-theme: mat.define-light-theme(
 
 .mat-color-secondary {
   color: mat.get-color-from-palette($takeaway-clone-secondary, 400);
+}
+
+$mat-icons-suffix: ('', '-outlined', '-round', '-sharp', '-two-tone');
+
+@each $suffix in $mat-icons-suffix {
+  .material-icons#{$suffix} {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+
+    @if ($suffix != '') {
+      $sliced: string.slice($suffix, 2);
+      $first: string.slice($sliced, 1, 1);
+      @if ($suffix == '-two-tone') {
+        font-family: 'Material Icons Two Tone';
+      } @else {
+        font-family: #{'Material Icons ' +
+          string.to-upper-case($first) +
+          string.slice($sliced, 2)};
+      }
+    } @else {
+      font-family: 'Material Icons';
+    }
+  }
 }

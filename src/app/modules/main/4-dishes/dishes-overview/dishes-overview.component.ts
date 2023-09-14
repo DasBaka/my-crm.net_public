@@ -12,9 +12,10 @@ import {
   DishesOverviewDataSource,
   DishesOverviewItem,
 } from './dishes-overview-datasource';
-import { FirestoreDataService } from 'src/app/firestore-data.service';
+import { FirestoreDataService } from 'src/app/core/firestore-data.service';
 import { FormControl } from '@angular/forms';
 import { addDoc } from 'firebase/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dishes-overview',
@@ -34,13 +35,14 @@ export class DishesOverviewComponent implements AfterViewInit {
   displayedColumns = ['tag'];
   icon = 'add';
 
+  constructor(private _snackBar: MatSnackBar) {}
+
   ngAfterViewInit(): void {
     this.dataService.tagColl$.subscribe((data) => {
       this.dataSource.data = data;
       this.table.dataSource = this.dataSource;
     });
     this.prepareData();
-    console.log(this.icon);
   }
 
   prepareData() {
@@ -80,11 +82,16 @@ export class DishesOverviewComponent implements AfterViewInit {
     let newTag =
       this.inputValue().charAt(0).toUpperCase() + this.inputValue().slice(1);
     if (!arr.includes(newTag)) {
-      await addDoc(this.dataService.coll('tags'), {
-        count: 0,
-        tag: newTag,
-      });
-      this.icon = 'done';
+      try {
+        await addDoc(this.dataService.coll('tags'), {
+          count: 0,
+          tag: newTag,
+        });
+        this._snackBar.open('Tag added.', 'OK', { duration: 5000 });
+      } catch (error) {
+        console.log(error);
+        return;
+      }
     } else {
       this.addingTag.setErrors({ exists: true });
     }

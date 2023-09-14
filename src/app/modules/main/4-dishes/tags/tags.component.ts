@@ -15,26 +15,14 @@ export class TagsComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          {
-            title: 'Card 1',
-            cols: 1,
-            rows: 1,
-            outlet: '',
-          },
-          { title: 'Card 2', cols: 1, rows: 2, outlet: 'tags-list' },
-          { title: 'Card 3', cols: 1, rows: 1, outlet: '' },
+          { title: 'Listed Tags', cols: 1, rows: 3, outlet: 'tags-list' },
+          { title: 'Usage', cols: 1, rows: 3, outlet: '' },
         ];
       }
 
       return [
-        {
-          title: 'Card 1',
-          cols: 2,
-          rows: 1,
-          outlet: '',
-        },
-        { title: 'Card 2', cols: 1, rows: 2, outlet: 'tags-list' },
-        { title: 'Card 3', cols: 1, rows: 1, outlet: '' },
+        { title: 'Listed Tags', cols: 1, rows: 3, outlet: 'tags-list' },
+        { title: 'Usage', cols: 1, rows: 3, outlet: '' },
       ];
     })
   );
