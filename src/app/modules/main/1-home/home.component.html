@@ -1,5 +1,4 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list
     cols="2"
     rowHeight="350px">
@@ -10,7 +9,7 @@
       <mat-card
         class="dashboard-card"
         tabindex="0"
-        [routerLink]="card.link">
+        [routerLink]="[card.link]">
         <mat-card-header>
           <mat-card-title>
             <mat-icon class="material-icons-two-tone">{{ card.icon }}</mat-icon>

@@ -4,4 +4,5 @@ export interface DishProfile {
   cost: number | null;
   price: string;
   tags: Array<string> | null;
+  id?: string;
 }

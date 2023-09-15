@@ -12,7 +12,7 @@ import {
   DishesOverviewDataSource,
   DishesOverviewItem,
 } from './dishes-overview-datasource';
-import { FirestoreDataService } from 'src/app/core/firestore-data.service';
+import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { FormControl } from '@angular/forms';
 import { addDoc } from 'firebase/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';

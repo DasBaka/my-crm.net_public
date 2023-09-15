@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirestoreDataService } from 'src/app/core/firestore-data.service';
+import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { Restaurant } from 'src/models/classes/restaurant.class';
 import { RestaurantProfile } from 'src/models/interfaces/restaurant-profile.interface';
 
@@ -36,10 +36,11 @@ export class SettingsComponent implements AfterViewInit {
   }
 
   async getEditable() {
-    this.restaurant = (await this.dataService.getDocData(
-      'restaurant/restaurant-data'
-    )) as RestaurantProfile;
-    this.dataToEdit = new Restaurant(this.restaurant);
+    this.dataToEdit = new Restaurant(
+      (await this.dataService.getDocData(
+        'restaurant/restaurant-data'
+      )) as RestaurantProfile
+    );
   }
 
   responsibleGroup(data: Restaurant) {

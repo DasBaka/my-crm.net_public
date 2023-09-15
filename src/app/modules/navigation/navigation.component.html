@@ -5,17 +5,11 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="false">
+    [opened]="true">
     <mat-toolbar
       ><a href="/">T<small>ake</small>A<small>way</small>-CRM</a></mat-toolbar
     >
     <mat-nav-list>
-      <a
-        mat-list-item
-        href="dashboard"
-        (click)="setStep(0)"
-        >Dashboard</a
-      >
       <mat-accordion class="example-headers-align">
         <mat-expansion-panel
           [expanded]="step === 1"
@@ -105,23 +99,37 @@
           >
         </mat-expansion-panel>
       </mat-accordion>
-      <a
-        mat-list-item
-        href="#"
-        >Logout</a
-      >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>{{ URLtitle }}</span>
+    <mat-toolbar
+      color="primary"
+      class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <h1 class="mat-h1">{{ URLtitle }}</h1>
+      </div>
+      <div class="d-flex align-items-center gap-3 pe-3">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          [routerLink]="['home']">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button>
+          <mat-icon>power_settings_new</mat-icon>
+        </button>
+      </div>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

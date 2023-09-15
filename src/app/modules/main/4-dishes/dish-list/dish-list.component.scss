@@ -1,3 +1,8 @@
 .full-width-table {
   width: 100%;
 }
+
+.mat-mdc-row:hover .mat-mdc-cell,
+.mat-mdc-row.selectedRow .mat-mdc-cell {
+  background: rgba(0, 0, 0, 0.04);
+}

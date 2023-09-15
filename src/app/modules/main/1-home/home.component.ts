@@ -37,7 +37,7 @@ export class HomeComponent {
           {
             title: 'Dishes',
             icon: 'storefront',
-            link: '',
+            link: '../dishes/list',
             cols: 1,
             rows: 1,
             text: ['See all listed dishes', 'Rearrange tags'],
@@ -76,7 +76,7 @@ export class HomeComponent {
         {
           title: 'Dishes',
           icon: 'storefront',
-          link: '',
+          link: '../dishes/list',
           cols: 1,
           rows: 1,
           text: ['See all listed dishes', 'Rearrange tags'],

@@ -1,3 +1,6 @@
+@use '../../../../styles/base/material' as *;
+@use '@angular/material' as mat;
+
 .grid-container {
   margin: 20px;
 }
@@ -8,7 +11,18 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
-  cursor: pointer;
+  @include mat.elevation-transition();
+  @include mat.elevation(2);
+
+  &,
+  & * {
+    cursor: pointer;
+  }
+
+  &:hover {
+    @extend .bg-mat-accent;
+    @include mat.elevation(8);
+  }
 }
 
 .more-button {

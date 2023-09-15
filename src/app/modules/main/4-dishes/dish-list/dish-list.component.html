@@ -7,6 +7,7 @@
     <!-- Id Column -->
     <ng-container matColumnDef="name">
       <th
+        [style.width.%]="(1 / displayedColumns.length) * 100"
         mat-header-cell
         *matHeaderCellDef
         mat-sort-header>
@@ -22,6 +23,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="text">
       <th
+        [style.width.%]="(1 / displayedColumns.length) * 100"
         mat-header-cell
         *matHeaderCellDef
         mat-sort-header>
@@ -36,6 +38,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="cost">
       <th
+        [style.width.%]="(1 / displayedColumns.length) * 100"
         mat-header-cell
         *matHeaderCellDef
         mat-sort-header>
@@ -50,6 +53,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="tags">
       <th
+        [style.width.%]="(1 / displayedColumns.length) * 100"
         mat-header-cell
         *matHeaderCellDef
         mat-sort-header>
@@ -61,18 +65,54 @@
         {{ row.tags }}
       </td>
     </ng-container>
+    <ng-container matColumnDef="buttons">
+      <th
+        [style.width.%]="(1 / displayedColumns.length) * 100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header></th>
+      <td
+        mat-cell
+        *matCellDef="let row">
+        <button
+          *ngIf="selected == row.id"
+          type="button"
+          aria-label="Toggle sidenav"
+          (click)="routeEdit(row.id)"
+          mat-icon-button>
+          <mat-icon
+            color="accent"
+            class="material-icons-outlined"
+            >edit</mat-icon
+          >
+        </button>
+        <button
+          *ngIf="selected == row.id"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button>
+          <mat-icon
+            color="accent"
+            class="material-icons-outlined"
+            >delete_forever</mat-icon
+          >
+        </button>
+      </td>
+    </ng-container>
 
     <tr
       mat-header-row
       *matHeaderRowDef="displayedColumns"></tr>
     <tr
       mat-row
+      [class.selectedRow]="selected == row.id"
+      (click)="selected = row.id; $event.stopPropagation()"
       *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
   <mat-paginator
     #paginator
-    [length]="dataSource.data.length"
+    [length]="0"
     [pageIndex]="0"
     [pageSize]="10"
     [pageSizeOptions]="[5, 10, 20]"

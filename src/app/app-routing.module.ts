@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: 'tags',
-        title: 'Tags',
+        title: 'Tags | MyCRM',
         component: TagsComponent,
         children: [
           { path: '', component: DishesOverviewComponent, outlet: 'tags-list' },
@@ -24,19 +24,25 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        title: 'Dishes',
+        title: 'Dishes | MyCRM',
         component: DishListComponent,
       },
       {
+        path: 'list/edit',
+        title: 'Edit dish | MyCRM',
+        component: AddDishComponent,
+      },
+
+      {
         path: 'add',
-        title: 'Add Dish',
+        title: 'Add Dish | MyCRM',
         component: AddDishComponent,
       },
     ],
   },
   { path: 'orders', component: OrdersComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'restaurant', component: SettingsComponent },
+  { path: 'settings', component: SettingsComponent },
   {
     path: '',
     redirectTo: 'home',

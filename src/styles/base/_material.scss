@@ -14,13 +14,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $takeaway-clone-primary: mat.define-palette(mat.$orange-palette);
-$takeaway-clone-secondary: mat.define-palette(mat.$blue-gray-palette);
-$takeaway-clone-accent: mat.define-palette(
-  mat.$light-blue-palette,
-  A200,
-  A100,
-  A400
-);
+$takeaway-clone-accent: mat.define-palette(mat.$grey-palette, 500, A400, A700);
 
 // The warn palette is optional (defaults to red).
 $takeaway-clone-warn: mat.define-palette(mat.$red-palette);
@@ -36,7 +30,6 @@ $takeaway-clone-theme: mat.define-light-theme(
   (
     color: (
       primary: $takeaway-clone-primary,
-      secondary: $takeaway-clone-secondary,
       accent: $takeaway-clone-accent,
       warn: $takeaway-clone-warn,
     ),
@@ -64,8 +57,8 @@ $takeaway-clone-theme: mat.define-light-theme(
   background-color: white;
 }
 
-.mat-color-secondary {
-  color: mat.get-color-from-palette($takeaway-clone-secondary, 400);
+.mat-color-accent {
+  color: mat.get-color-from-palette($takeaway-clone-accent, 50);
 }
 
 $mat-icons-suffix: ('', '-outlined', '-round', '-sharp', '-two-tone');

@@ -6,6 +6,7 @@ export class Dish implements DishProfile {
   cost: number | null;
   price: string = '';
   tags: Array<string> | null;
+  id?: string;
 
   constructor(data?: DishProfile) {
     this.name = data?.name ?? null;

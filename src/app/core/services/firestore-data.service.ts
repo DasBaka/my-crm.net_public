@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseApps } from '@angular/fire/app';
 import { collectionData } from '@angular/fire/firestore';
 import {
+  CollectionReference,
   Firestore,
   collection,
   doc,
@@ -68,8 +69,7 @@ export class FirestoreDataService {
     return await updateDoc(this.getDocRef(refId), data);
   }
 
-  /*
-  async addNewDoc(values: any) {
+  /*  async addNewDoc(coll: CollectionReference, values: any[]) {
     let id: string | undefined;
     const coll = collection(this.restaurantStore, 'restaurants');
     await addDoc(coll, values).then((doc: DocumentReference) => {
@@ -89,6 +89,5 @@ export class FirestoreDataService {
         {}
       );
     }
-  }
- */
+  } */
 }
