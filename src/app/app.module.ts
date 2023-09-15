@@ -34,7 +34,6 @@ import { OrdersComponent } from './modules/main/2-orders/orders.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SettingsComponent } from './modules/main/5-restaurant/settings/settings.component';
 import { MatTreeModule } from '@angular/material/tree';
-import { DishesOverviewComponent } from './modules/main/4-dishes/dishes-overview/dishes-overview.component';
 import { TagsComponent } from './modules/main/4-dishes/tags/tags.component';
 import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.component';
 import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
@@ -49,7 +48,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     UsersComponent,
     OrdersComponent,
     SettingsComponent,
-    DishesOverviewComponent,
     TagsComponent,
     DishListComponent,
     AddDishComponent,

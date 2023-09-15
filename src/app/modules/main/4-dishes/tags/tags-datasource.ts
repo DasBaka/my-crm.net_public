@@ -4,17 +4,17 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-export interface DishesOverviewItem {
+export interface TagsItem {
   tag: string;
 }
 
 /**
- * Data source for the DishesOverview view. This class should
+ * Data source for the Tags view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DishesOverviewDataSource extends DataSource<DishesOverviewItem> {
-  data!: DishesOverviewItem[];
+export class TagsDataSource extends DataSource<TagsItem> {
+  data!: TagsItem[];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -27,7 +27,7 @@ export class DishesOverviewDataSource extends DataSource<DishesOverviewItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<DishesOverviewItem[]> {
+  connect(): Observable<TagsItem[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
@@ -57,7 +57,7 @@ export class DishesOverviewDataSource extends DataSource<DishesOverviewItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: DishesOverviewItem[]): DishesOverviewItem[] {
+  private getPagedData(data: TagsItem[]): TagsItem[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -70,7 +70,7 @@ export class DishesOverviewDataSource extends DataSource<DishesOverviewItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: DishesOverviewItem[]): DishesOverviewItem[] {
+  private getSortedData(data: TagsItem[]): TagsItem[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }

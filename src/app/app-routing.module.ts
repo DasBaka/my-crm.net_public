@@ -4,7 +4,6 @@ import { HomeComponent } from './modules/main/1-home/home.component';
 import { OrdersComponent } from './modules/main/2-orders/orders.component';
 import { UsersComponent } from './modules/main/3-users/users.component';
 import { SettingsComponent } from './modules/main/5-restaurant/settings/settings.component';
-import { DishesOverviewComponent } from './modules/main/4-dishes/dishes-overview/dishes-overview.component';
 import { TagsComponent } from './modules/main/4-dishes/tags/tags.component';
 import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.component';
 import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
@@ -18,9 +17,6 @@ const routes: Routes = [
         path: 'tags',
         title: 'Tags | MyCRM',
         component: TagsComponent,
-        children: [
-          { path: '', component: DishesOverviewComponent, outlet: 'tags-list' },
-        ],
       },
       {
         path: 'list',
