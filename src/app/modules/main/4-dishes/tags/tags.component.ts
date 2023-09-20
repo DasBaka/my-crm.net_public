@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { TagsDataSource, TagsItem } from '../tags/tags-datasource';
 import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { FormControl } from '@angular/forms';
-import { addDoc } from 'firebase/firestore';
+import { DocumentReference, addDoc, updateDoc } from 'firebase/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FilterTableService } from 'src/app/core/services/filter-table.service';
 
@@ -32,7 +32,7 @@ export class TagsComponent implements AfterViewInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tag'];
-  extended = false;
+  selected: string = '';
 
   constructor(private _snackBar: MatSnackBar) {}
 
@@ -75,20 +75,29 @@ export class TagsComponent implements AfterViewInit {
       this.filterService.inputValue(this.input).charAt(0).toUpperCase() +
       this.filterService.inputValue(this.input).slice(1);
     if (!arr.includes(newTag)) {
-      try {
-        await addDoc(this.dataService.coll('tags'), {
-          count: 0,
-          tag: newTag,
-        });
-        this._snackBar.open('"' + newTag + '"-Tag added.', 'OK', {
-          duration: 5000,
-        });
-      } catch (error) {
-        console.log(error);
-        return;
-      }
+      await this.syncWithFirebaseTags(newTag);
+      this.addingTag.reset();
     } else {
       this.addingTag.setErrors({ exists: true });
+    }
+  }
+
+  async syncWithFirebaseTags(newTag: string) {
+    try {
+      await addDoc(this.dataService.coll('tags'), {
+        usage: 0,
+        tag: newTag,
+      }).then((doc: DocumentReference) => {
+        updateDoc(doc, {
+          id: doc.id,
+        });
+      });
+      this._snackBar.open('"' + newTag + '"-Tag added.', 'OK', {
+        duration: 5000,
+      });
+    } catch (error) {
+      console.log(error);
+      return;
     }
   }
 }

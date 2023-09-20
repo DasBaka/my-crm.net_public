@@ -7,7 +7,10 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 // TODO: Replace this with your own data model type
 export interface DishListItem {
   name: string;
-  id: number;
+  text: string;
+  cost: string;
+  tags: Array<string>;
+  id?: string;
 }
 
 /**
@@ -82,8 +85,16 @@ export class DishListDataSource extends DataSource<DishListItem> {
       switch (this.sort?.active) {
         case 'name':
           return compare(a.name, b.name, isAsc);
-        case 'id':
-          return compare(+a.id, +b.id, isAsc);
+        case 'text':
+          return compare(a.text, b.text, isAsc);
+        case 'cost':
+          return compare(a.cost, b.cost, isAsc);
+        case 'tags':
+          return compare(
+            a.tags.sort().reduce((acc, cur) => acc + cur),
+            b.tags.sort().reduce((acc, cur) => acc + cur),
+            isAsc
+          );
         default:
           return 0;
       }

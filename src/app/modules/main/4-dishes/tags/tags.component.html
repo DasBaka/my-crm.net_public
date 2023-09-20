@@ -18,7 +18,7 @@
       matTooltip="Primary"
       class="btn-margin"
       color="primary"
-      (click)="addTag()">
+      (click)="addTag(); input.focus()">
       <mat-icon>add</mat-icon>
     </button>
   </mat-toolbar>
@@ -47,6 +47,8 @@
         *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr
         mat-row
+        [ngClass]="{ selectedRow: selected == row.id }"
+        (click)="selected = row.id; $event.stopPropagation()"
         *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>

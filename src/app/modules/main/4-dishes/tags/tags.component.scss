@@ -1,3 +1,5 @@
+@use '../../../../../styles/base/material' as *;
+
 .full-width-table {
   width: 100%;
 }
@@ -17,4 +19,15 @@
 .btn-margin {
   margin-bottom: 22px;
   margin-left: 1rem;
+}
+
+.mat-mdc-row:hover,
+.mat-mdc-row.selectedRow {
+  &.deleteState .mat-mdc-cell {
+    @extend .bg-mat-accent;
+  }
+
+  & .mat-mdc-cell {
+    background: rgba(0, 0, 0, 0.04);
+  }
 }
