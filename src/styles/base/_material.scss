@@ -46,19 +46,25 @@ $takeaway-clone-theme: mat.define-light-theme(
 /* You can add global styles to this file, and also import other style files */
 
 .bg-mat-primary {
-  background: mat.get-color-from-palette($takeaway-clone-primary, 600);
+  background: mat.get-color-from-palette(
+    $takeaway-clone-primary,
+    600
+  ) !important;
 }
 
 .bg-mat-accent {
-  background: mat.get-color-from-palette($takeaway-clone-accent, 50);
+  background: mat.get-color-from-palette(
+    $takeaway-clone-accent,
+    300
+  ) !important;
 }
 
 .bg-mat-white {
-  background-color: white;
+  background-color: white !important;
 }
 
 .mat-color-accent {
-  color: mat.get-color-from-palette($takeaway-clone-accent, 50);
+  color: mat.get-color-from-palette($takeaway-clone-accent, 300) !important;
 }
 
 $mat-icons-suffix: ('', '-outlined', '-round', '-sharp', '-two-tone');

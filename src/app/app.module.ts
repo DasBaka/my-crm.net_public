@@ -28,7 +28,10 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { UsersComponent } from './modules/main/3-users/users.component';
 import { OrdersComponent } from './modules/main/2-orders/orders.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -39,6 +42,8 @@ import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.c
 import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DeleteDialogComponent } from './modules/dialog/delete-dialog/delete-dialog.component';
+import { AutofocusDirective } from './core/directives/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     TagsComponent,
     DishListComponent,
     AddDishComponent,
+    DeleteDialogComponent,
+    AutofocusDirective,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +93,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     DragDropModule,
     MatTreeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        enterAnimationDuration: '250ms',
+        exitAnimationDuration: '250ms',
+        disableClose: true,
+        closeOnNavigation: true,
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -25,3 +25,13 @@
 .col:last-child {
   margin-right: 0;
 }
+
+.search-field {
+  margin-top: -8px;
+  top: -8px;
+  z-index: 1;
+}
+
+mat-chip-listbox {
+  height: 40px;
+}

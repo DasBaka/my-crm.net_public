@@ -50,11 +50,15 @@
           </mat-form-field>
         </div>
       </div>
-      <mat-form-field class="col">
+      <mat-form-field class="full-width">
         <mat-label>Tags</mat-label>
         <mat-select
           formControlName="tags"
-          multiple>
+          class="position-relative"
+          multiple
+          (focus)="matSelect.open()"
+          (openedChange)="search.focus()"
+          #matSelect>
           <mat-select-trigger>
             {{dishForm.controls['tags'].value?.[0] || ''}}
             <span
@@ -68,12 +72,16 @@
               }})
             </span>
           </mat-select-trigger>
-          <mat-form-field class="full-width">
-            <mat-label>Search</mat-label>
+          <mat-form-field
+            class="full-width d-flex position-sticky search-field bg-mat-white"
+            appearance="outline"
+            subscriptSizing="dynamic">
             <input
               matInput
+              #search
+              (input)="filterTags()"
               placeholder="Search"
-              type="text" />
+              type="search" />
           </mat-form-field>
           <mat-option
             [disabled]="
@@ -89,7 +97,7 @@
           >{{ dishForm.controls['tags'].value?.length || 0 }} / max. 5</mat-hint
         >
       </mat-form-field>
-      <mat-chip-listbox class="col">
+      <mat-chip-listbox class="col px-2 mb-3">
         <mat-chip *ngFor="let tag of dishForm.controls['tags'].value">{{
           tag
         }}</mat-chip>

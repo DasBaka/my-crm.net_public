@@ -1,57 +1,55 @@
-<div class="h-100 overflow-auto">
-  <table
-    mat-table
-    class="full-width-table"
-    matSort
-    aria-label="Elements">
-    <ng-container matColumnDef="tag">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header>
-        Name
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let row">
-        {{ row.tag }}
-      </td>
-      <th
-        mat-footer-cell
-        *matFooterCellDef>
-        <mat-form-field>
-          <mat-label>Filter</mat-label>
-          <input
-            matInput
-            (keyup)="filter()"
-            (keydown)="icon = 'add'"
-            placeholder="Search or Add"
-            [formControl]="addingTag"
-            #input />
-          <mat-error *ngIf="addingTag.hasError('exists')">
-            <strong>{{ input.value }}</strong> already exists!
-          </mat-error>
-        </mat-form-field>
-        <button
-          mat-mini-fab
-          matTooltip="Primary"
-          color="primary"
-          (click)="addTag()">
-          <mat-icon>{{ icon }}</mat-icon>
-        </button>
-      </th>
-    </ng-container>
+<div class="height-for-toolbar overflow-hidden">
+  <mat-toolbar class="bg-mat-white h-auto pt-2">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="filter()"
+        placeholder="Search for..."
+        [formControl]="addingTag"
+        #input />
+      <mat-error *ngIf="addingTag.hasError('exists')">
+        <strong>{{ input.value }}</strong> already exists!
+      </mat-error>
+    </mat-form-field>
+    <button
+      *ngIf="input.value.length != 0"
+      mat-mini-fab
+      matTooltip="Primary"
+      class="btn-margin"
+      color="primary"
+      (click)="addTag()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="height-for-tag-table overflow-auto">
+    <table
+      mat-table
+      class="full-width-table"
+      matSort
+      aria-label="Elements">
+      <ng-container matColumnDef="tag">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          Name
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let row">
+          {{ row.tag }}
+        </td>
+      </ng-container>
 
-    <tr
-      mat-header-row
-      *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"></tr>
-    <tr
-      mat-footer-row
-      *matFooterRowDef="displayedColumns; sticky: true"></tr>
-  </table>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 
   <mat-paginator
     #paginator

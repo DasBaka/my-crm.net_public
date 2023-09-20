@@ -5,6 +5,7 @@ import {
   CollectionReference,
   Firestore,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getFirestore,
@@ -69,25 +70,7 @@ export class FirestoreDataService {
     return await updateDoc(this.getDocRef(refId), data);
   }
 
-  /*  async addNewDoc(coll: CollectionReference, values: any[]) {
-    let id: string | undefined;
-    const coll = collection(this.restaurantStore, 'restaurants');
-    await addDoc(coll, values).then((doc: DocumentReference) => {
-      id = doc.id;
-      updateDoc(doc, {
-        id: id,
-        tags: {},
-      });
-    });
-    this.defineNewDoc(id);
+  async deleteDoc(id: string) {
+    await deleteDoc(this.getDocRef(id));
   }
-
-  async defineNewDoc(id: string | undefined) {
-    if (id != undefined) {
-      await setDoc(
-        doc(this.restaurantStore, 'restaurants/' + id + '/dishes', id),
-        {}
-      );
-    }
-  } */
 }

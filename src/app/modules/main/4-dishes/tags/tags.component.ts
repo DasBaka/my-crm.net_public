@@ -13,6 +13,7 @@ import { FirestoreDataService } from 'src/app/core/services/firestore-data.servi
 import { FormControl } from '@angular/forms';
 import { addDoc } from 'firebase/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FilterTableService } from 'src/app/core/services/filter-table.service';
 
 @Component({
   selector: 'app-dishes-overview',
@@ -27,10 +28,11 @@ export class TagsComponent implements AfterViewInit {
   addingTag = new FormControl('');
   dataSource = new TagsDataSource();
   dataService: FirestoreDataService = inject(FirestoreDataService);
+  filterService: FilterTableService = inject(FilterTableService);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tag'];
-  icon = 'add';
+  extended = false;
 
   constructor(private _snackBar: MatSnackBar) {}
 
@@ -49,7 +51,7 @@ export class TagsComponent implements AfterViewInit {
 
   filter() {
     this.table.dataSource = this.dataSource;
-    if (this.inputValue().length != 0) {
+    if (this.filterService.inputValue(this.input).length != 0) {
       this.table.dataSource = this.filtered();
     }
     this.prepareData();
@@ -57,18 +59,11 @@ export class TagsComponent implements AfterViewInit {
 
   filtered() {
     return this.dataSource.data.filter((item) =>
-      this.isPartOfString(item.tag, this.inputValue())
+      this.filterService.isPartOfString(
+        item.tag,
+        this.filterService.inputValue(this.input)
+      )
     );
-  }
-
-  inputValue() {
-    return this.input.nativeElement.value
-      .replace(/^\s+|\s+$/g, '')
-      .toLowerCase();
-  }
-
-  isPartOfString(base: string, compare: string) {
-    return base.toLowerCase().search(compare) != -1;
   }
 
   async addTag() {
@@ -77,14 +72,17 @@ export class TagsComponent implements AfterViewInit {
       arr.push(e.tag);
     });
     let newTag =
-      this.inputValue().charAt(0).toUpperCase() + this.inputValue().slice(1);
+      this.filterService.inputValue(this.input).charAt(0).toUpperCase() +
+      this.filterService.inputValue(this.input).slice(1);
     if (!arr.includes(newTag)) {
       try {
         await addDoc(this.dataService.coll('tags'), {
           count: 0,
           tag: newTag,
         });
-        this._snackBar.open('Tag added.', 'OK', { duration: 5000 });
+        this._snackBar.open('"' + newTag + '"-Tag added.', 'OK', {
+          duration: 5000,
+        });
       } catch (error) {
         console.log(error);
         return;

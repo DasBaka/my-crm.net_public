@@ -30,8 +30,8 @@ const routes: Routes = [
       },
 
       {
-        path: 'add',
-        title: 'Add Dish | MyCRM',
+        path: 'add-dish',
+        title: 'Add new dish | MyCRM',
         component: AddDishComponent,
       },
     ],

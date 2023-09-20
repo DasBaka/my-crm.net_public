@@ -1,4 +1,31 @@
-<div class="mat-elevation-z8">
+<div
+  class="mat-elevation-z8"
+  [style.filter]="del ? 'brightness(96%) grayscale(4%)' : ''">
+  <mat-toolbar class="bg-mat-white h-auto py-2 justify-content-between">
+    <div>
+      <button
+        [disabled]="del"
+        mat-raised-button
+        [routerLink]="['../add-dish']"
+        color="primary">
+        New dish
+      </button>
+      <button
+        mat-raised-button
+        (click)="del = !del"
+        [color]="del ? 'warn' : 'primary'">
+        Delete dish
+      </button>
+    </div>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="filter()"
+        placeholder="Search for..."
+        #input />
+    </mat-form-field>
+  </mat-toolbar>
   <table
     mat-table
     class="full-width-table"
@@ -32,7 +59,7 @@
       <td
         mat-cell
         *matCellDef="let row">
-        {{ row.text }}
+        <p>{{ row.text }}</p>
       </td>
     </ng-container>
     <!-- Name Column -->
@@ -75,7 +102,7 @@
         mat-cell
         *matCellDef="let row">
         <button
-          *ngIf="selected == row.id"
+          *ngIf="selected == row.id && !del"
           type="button"
           aria-label="Toggle sidenav"
           (click)="routeEdit(row.id)"
@@ -87,12 +114,13 @@
           >
         </button>
         <button
-          *ngIf="selected == row.id"
+          *ngIf="selected == row.id && del"
           type="button"
           aria-label="Toggle sidenav"
+          (click)="openDeletionDialog(row.name, 'Dish', row.id)"
           mat-icon-button>
           <mat-icon
-            color="accent"
+            color="warn"
             class="material-icons-outlined"
             >delete_forever</mat-icon
           >
@@ -105,7 +133,7 @@
       *matHeaderRowDef="displayedColumns"></tr>
     <tr
       mat-row
-      [class.selectedRow]="selected == row.id"
+      [ngClass]="{ selectedRow: selected == row.id, deleteState: del }"
       (click)="selected = row.id; $event.stopPropagation()"
       *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
@@ -114,8 +142,8 @@
     #paginator
     [length]="0"
     [pageIndex]="0"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="20"
+    [pageSizeOptions]="[10, 20, 40]"
     aria-label="Select page">
   </mat-paginator>
 </div>

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnInit,
   ViewChild,
   inject,
 } from '@angular/core';
@@ -9,14 +10,22 @@ import {
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
+  UntypedFormControl,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentReference, addDoc, updateDoc } from 'firebase/firestore';
+import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 import { CurrencyFormatterService } from 'src/app/core/services/currency-formatter.service';
+import { FilterTableService } from 'src/app/core/services/filter-table.service';
 import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { Dish } from 'src/models/classes/dish.class';
 import { DishProfile } from 'src/models/interfaces/dish-profile.interface';
@@ -28,23 +37,24 @@ import { DishProfile } from 'src/models/interfaces/dish-profile.interface';
 })
 export class AddDishComponent implements AfterViewInit {
   @ViewChild('currency') currency!: ElementRef;
+  @ViewChild('search') search!: ElementRef;
   private fb = inject(FormBuilder);
   dataService: FirestoreDataService = inject(FirestoreDataService);
-  tagList: string[] = [];
   currencyService: CurrencyFormatterService = inject(CurrencyFormatterService);
   dataToEdit = new Dish();
   id: string | undefined;
-
+  tagList: string[] = [];
+  tagListSave: string[] = [];
+  filterService: FilterTableService = inject(FilterTableService);
   dishForm!: FormGroup;
 
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar, private router: Router) {
     this.id = window.history.state.id || undefined;
-    console.log(this.id);
-
     this.initForm();
     this.dataService.tagColl$.subscribe((data) => {
       data.forEach((e) => {
         this.tagList.push(e.tag);
+        this.tagListSave.push(e.tag);
       });
     });
   }
@@ -52,16 +62,16 @@ export class AddDishComponent implements AfterViewInit {
   async ngAfterViewInit() {
     await this.getEditable();
     this.initForm();
-    if (this.currency.nativeElement.value == null) {
-      this.currency.nativeElement.value = this.currencyService.rtl('0.00');
-    }
   }
 
   initForm() {
     this.dishForm = this.fb.group({
       name: [this.dataToEdit.name || null, Validators.required],
       text: [this.dataToEdit.text || null],
-      cost: [this.dataToEdit.cost || '€0.00', this.priceError()],
+      cost: new FormControl(this.dataToEdit.cost || '€0.00', {
+        nonNullable: true,
+        validators: [this.priceError()],
+      }),
       tags: [this.dataToEdit.tags || ''],
     });
   }
@@ -76,7 +86,10 @@ export class AddDishComponent implements AfterViewInit {
 
   formatCurrency() {
     let current = this.currency.nativeElement;
-    current.value = this.currencyService.rtl(current.value) ?? '€0.00';
+    if (current.value.length <= 1) {
+      current.value = '€0.00' + current.value;
+    }
+    current.value = this.currencyService.rtl(current.value);
     this.dishForm.controls['cost'].setValue(current.value);
   }
 
@@ -92,10 +105,7 @@ export class AddDishComponent implements AfterViewInit {
     if (this.dishForm.valid) {
       try {
         if (this.id) {
-          await this.dataService.update(
-            'dishes/' + this.id,
-            this.dishForm.value
-          );
+          await this.editDish();
         } else {
           await this.newDish();
         }
@@ -106,6 +116,16 @@ export class AddDishComponent implements AfterViewInit {
     }
   }
 
+  async editDish() {
+    await this.dataService.update('dishes/' + this.id, this.dishForm.value);
+    this._snackBar.open(
+      '"' + this.dishForm.controls['name'].value + '" successfully edited',
+      undefined,
+      { duration: 3000 }
+    );
+    this.router.navigate(['dishes/list']);
+  }
+
   async newDish() {
     await addDoc(this.dataService.coll('dishes'), this.dishForm.value).then(
       (doc: DocumentReference) => {
@@ -113,8 +133,25 @@ export class AddDishComponent implements AfterViewInit {
         updateDoc(doc, { id: id });
       }
     );
-    let message = this.dishForm.controls['name'].value + "' added.";
-    this._snackBar.open(message, 'OK', { duration: 5000 });
+    let message = '"' + this.dishForm.controls['name'].value + '" added.';
+    this._snackBar.open(message, undefined, { duration: 5000 });
     this.dishForm.reset();
+    this.dishForm.markAsUntouched();
+  }
+
+  filterTags() {
+    this.tagList = this.tagListSave.slice();
+    if (this.filterService.inputValue(this.search).length != 0) {
+      this.tagList = this.filtered();
+    }
+  }
+
+  filtered() {
+    return this.tagList.filter((item) =>
+      this.filterService.isPartOfString(
+        item,
+        this.filterService.inputValue(this.search)
+      )
+    );
   }
 }
