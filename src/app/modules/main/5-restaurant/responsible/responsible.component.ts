@@ -5,11 +5,11 @@ import { Restaurant } from 'src/models/classes/restaurant.class';
 import { RestaurantProfile } from 'src/models/interfaces/restaurant-profile.interface';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+  selector: 'app-responsible',
+  templateUrl: './responsible.component.html',
+  styleUrls: ['./responsible.component.scss'],
 })
-export class SettingsComponent implements AfterViewInit {
+export class ResponsibleComponent implements AfterViewInit {
   dataService: FirestoreDataService = inject(FirestoreDataService);
   restaurant!: RestaurantProfile;
   dataToEdit = new Restaurant();

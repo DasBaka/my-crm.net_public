@@ -7,15 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { SettingsComponent } from './settings.component';
+import { ResponsibleComponent } from './responsible.component';
 
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('ResponsibleComponent', () => {
+  let component: ResponsibleComponent;
+  let fixture: ComponentFixture<ResponsibleComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SettingsComponent],
+      declarations: [ResponsibleComponent],
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
@@ -29,7 +29,7 @@ describe('SettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(ResponsibleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -35,7 +35,7 @@ import {
 import { UsersComponent } from './modules/main/3-users/users.component';
 import { OrdersComponent } from './modules/main/2-orders/orders.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { SettingsComponent } from './modules/main/5-restaurant/settings/settings.component';
+import { ResponsibleComponent } from './modules/main/5-restaurant/responsible/responsible.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { TagsComponent } from './modules/main/4-dishes/tags/tags.component';
 import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.component';
@@ -44,6 +44,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogComponent } from './modules/dialog/delete-dialog/delete-dialog.component';
 import { AutofocusDirective } from './core/directives/autofocus.directive';
+import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
 
 @NgModule({
   declarations: [
@@ -52,12 +53,13 @@ import { AutofocusDirective } from './core/directives/autofocus.directive';
     HomeComponent,
     UsersComponent,
     OrdersComponent,
-    SettingsComponent,
+    ResponsibleComponent,
     TagsComponent,
     DishListComponent,
     AddDishComponent,
     DeleteDialogComponent,
     AutofocusDirective,
+    DeliveryHoursComponent,
   ],
   imports: [
     BrowserModule,

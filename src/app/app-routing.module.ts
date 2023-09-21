@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './modules/main/1-home/home.component';
 import { OrdersComponent } from './modules/main/2-orders/orders.component';
 import { UsersComponent } from './modules/main/3-users/users.component';
-import { SettingsComponent } from './modules/main/5-restaurant/settings/settings.component';
+import { ResponsibleComponent } from './modules/main/5-restaurant/responsible/responsible.component';
 import { TagsComponent } from './modules/main/4-dishes/tags/tags.component';
 import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.component';
 import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
+import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
 
 const routes: Routes = [
   { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
@@ -38,7 +39,21 @@ const routes: Routes = [
   },
   { path: 'orders', component: OrdersComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'settings', component: SettingsComponent },
+  {
+    path: 'restaurant',
+    children: [
+      {
+        path: 'responsible',
+        title: 'Restaurant Settings | MyCRM',
+        component: ResponsibleComponent,
+      },
+      {
+        path: 'hours',
+        title: 'Restaurant Opening Hours | MyCRM',
+        component: DeliveryHoursComponent,
+      },
+    ],
+  },
   {
     path: '',
     redirectTo: 'home',

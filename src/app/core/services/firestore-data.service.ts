@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FirebaseApps } from '@angular/fire/app';
 import { collectionData } from '@angular/fire/firestore';
 import {
-  CollectionReference,
   Firestore,
   collection,
   deleteDoc,
