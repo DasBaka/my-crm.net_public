@@ -21,6 +21,7 @@ export class FirestoreDataService {
   orderColl$!: Observable<any[]>;
   restaurantColl$!: Observable<any[]>;
   tagColl$!: Observable<any[]>;
+  userColl$!: Observable<any[]>;
 
   constructor(private allFirebaseApps: FirebaseApps) {
     let app = this.findApp();
@@ -34,6 +35,7 @@ export class FirestoreDataService {
         this.coll('restaurant')
       ) as Observable<any[]>;
       this.tagColl$ = collectionData(this.coll('tags')) as Observable<any[]>;
+      this.userColl$ = collectionData(this.coll('users')) as Observable<any[]>;
     }
   }
 
