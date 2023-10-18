@@ -45,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogComponent } from './modules/dialog/delete-dialog/delete-dialog.component';
 import { AutofocusDirective } from './core/directives/autofocus.directive';
 import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
+import { UserDetailsComponent } from './modules/main/3-users/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hou
     DeleteDialogComponent,
     AutofocusDirective,
     DeliveryHoursComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,

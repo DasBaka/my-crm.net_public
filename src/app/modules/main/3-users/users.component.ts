@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   ViewChild,
   inject,
 } from '@angular/core';
@@ -14,6 +15,7 @@ import { FormControl } from '@angular/forms';
 import { DocumentReference, addDoc, updateDoc } from 'firebase/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FilterTableService } from 'src/app/core/services/filter-table.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dishes-overview',
@@ -25,6 +27,7 @@ export class UsersComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<UsersItem>;
   @ViewChild('input') input!: ElementRef;
+  @ViewChild('h1') h!: ElementRef;
   addingTag = new FormControl('');
   dataSource = new UsersDataSource();
   dataService: FirestoreDataService = inject(FirestoreDataService);
@@ -34,7 +37,14 @@ export class UsersComponent implements AfterViewInit {
   displayedColumns = ['name', 'address', 'buttons'];
   selected: string = '';
 
-  constructor(private _snackBar: MatSnackBar) {}
+  dblClick = false;
+  timeAtClick = 0;
+
+  constructor(
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngAfterViewInit(): void {
     this.dataService.userColl$.subscribe((data) => {
@@ -99,5 +109,22 @@ export class UsersComponent implements AfterViewInit {
       console.log(error);
       return;
     }
+  }
+
+  openUserDetails(id: string) {
+    this.router.navigate(['details'], {
+      relativeTo: this.route,
+      state: { id: id },
+    });
+  }
+
+  simulateDblClick(id: string) {
+    let now = Date.now();
+    if (now - this.timeAtClick < 300) {
+      this.openUserDetails(id);
+      return;
+    }
+    this.timeAtClick = now;
+    return;
   }
 }

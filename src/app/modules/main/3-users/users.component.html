@@ -23,6 +23,7 @@
         </th>
         <td
           mat-cell
+          class="px-md-4"
           *matCellDef="let row">
           {{ row.customer.lastname }}, {{ row.customer.firstname }}
         </td>
@@ -36,6 +37,7 @@
         </th>
         <td
           mat-cell
+          class="px-md-4"
           *matCellDef="let row">
           {{ row.address.street }} {{ row.address.house }},
           {{ row.address.postalCode }} {{ row.address.city }}
@@ -47,9 +49,33 @@
           *matHeaderCellDef></th>
         <td
           mat-cell
-          *matCellDef="let row">
-          {{ row.address.street }} {{ row.address.house }},
-          {{ row.address.postalCode }} {{ row.address.city }}
+          *matCellDef="let row"
+          class="text-center px-md-4">
+          <a
+            mat-icon-button
+            matTooltip="Link"
+            (click)="$event.stopPropagation()"
+            href="tel:{{ row.contact.tel }}"
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon>call</mat-icon>
+          </a>
+          <a
+            mat-icon-button
+            matTooltip="Link"
+            (click)="$event.stopPropagation()"
+            href="mailto:{{ row.contact.mail }}"
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon>mail</mat-icon>
+          </a>
+          <a
+            mat-icon-button
+            matTooltip="Link"
+            (click)="$event.stopPropagation()"
+            [routerLink]="['./details']"
+            [state]="{ id: row.id }"
+            aria-label="Example icon-button with a heart icon">
+            <mat-icon>analytics</mat-icon>
+          </a>
         </td>
       </ng-container>
 
@@ -58,8 +84,7 @@
         *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr
         mat-row
-        [ngClass]="{ selectedRow: selected == row.id }"
-        (click)="selected = row.id; $event.stopPropagation()"
+        (click)="simulateDblClick(row.id); $event.stopPropagation()"
         *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>

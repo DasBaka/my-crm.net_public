@@ -8,6 +8,7 @@ import { TagsComponent } from './modules/main/4-dishes/tags/tags.component';
 import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.component';
 import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
 import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
+import { UserDetailsComponent } from './modules/main/3-users/user-details/user-details.component';
 
 const routes: Routes = [
   { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
@@ -38,7 +39,13 @@ const routes: Routes = [
     ],
   },
   { path: 'orders', component: OrdersComponent },
-  { path: 'users', component: UsersComponent },
+  {
+    path: 'users',
+    children: [
+      { path: '', component: UsersComponent },
+      { path: 'details', component: UserDetailsComponent },
+    ],
+  },
   {
     path: 'restaurant',
     children: [
