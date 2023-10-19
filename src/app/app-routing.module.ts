@@ -9,6 +9,8 @@ import { DishListComponent } from './modules/main/4-dishes/dish-list/dish-list.c
 import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.component';
 import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
 import { UserDetailsComponent } from './modules/main/3-users/user-details/user-details.component';
+import { StatsComponent } from './modules/main/5-restaurant/stats/stats.component';
+import { OrderOverviewComponent } from './modules/main/1-orders/order-overview/order-overview.component';
 
 const routes: Routes = [
   { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
@@ -38,12 +40,26 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'orders', component: OrdersComponent },
+  {
+    path: 'orders',
+    children: [
+      { path: 'kanban', title: 'My Board | MyCRM', component: OrdersComponent },
+      {
+        path: 'overview',
+        title: 'Overview | MyCRM',
+        component: OrderOverviewComponent,
+      },
+    ],
+  },
   {
     path: 'users',
     children: [
-      { path: '', component: UsersComponent },
-      { path: 'details', component: UserDetailsComponent },
+      { path: '', title: 'Users | MyCRM', component: UsersComponent },
+      {
+        path: 'details',
+        title: 'User Details | MyCRM',
+        component: UserDetailsComponent,
+      },
     ],
   },
   {
@@ -58,6 +74,11 @@ const routes: Routes = [
         path: 'hours',
         title: 'Restaurant Opening Hours | MyCRM',
         component: DeliveryHoursComponent,
+      },
+      {
+        path: 'stats',
+        title: 'Restaurant Overview | MyCRM',
+        component: StatsComponent,
       },
     ],
   },

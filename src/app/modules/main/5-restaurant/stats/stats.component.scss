@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+$takeaway-clone-accent: mat.define-palette(mat.$grey-palette, 500, A400, A700);
+
+mat-list-item {
+  margin-left: 1rem;
+}
+
+.subheader {
+  font-weight: bold;
+}
+
+.second-list {
+  $color: mat.get-color-from-palette($takeaway-clone-accent, 500);
+  @media (min-width: 768px) {
+    border-left: solid $color 1px;
+  }
+}

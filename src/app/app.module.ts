@@ -46,6 +46,8 @@ import { DeleteDialogComponent } from './modules/dialog/delete-dialog/delete-dia
 import { AutofocusDirective } from './core/directives/autofocus.directive';
 import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
 import { UserDetailsComponent } from './modules/main/3-users/user-details/user-details.component';
+import { StatsComponent } from './modules/main/5-restaurant/stats/stats.component';
+import { OrderOverviewComponent } from './modules/main/1-orders/order-overview/order-overview.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { UserDetailsComponent } from './modules/main/3-users/user-details/user-d
     AutofocusDirective,
     DeliveryHoursComponent,
     UserDetailsComponent,
+    StatsComponent,
+    OrderOverviewComponent,
   ],
   imports: [
     BrowserModule,

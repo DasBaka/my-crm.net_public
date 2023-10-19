@@ -40,11 +40,7 @@ export class UsersComponent implements AfterViewInit {
   dblClick = false;
   timeAtClick = 0;
 
-  constructor(
-    private _snackBar: MatSnackBar,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngAfterViewInit(): void {
     this.dataService.userColl$.subscribe((data) => {
@@ -74,41 +70,6 @@ export class UsersComponent implements AfterViewInit {
         this.filterService.inputValue(this.input)
       )
     );
-  }
-
-  async addTag() {
-    let arr: string[] = [];
-    this.dataSource.data.forEach((e) => {
-      arr.push(e.id);
-    });
-    let newTag =
-      this.filterService.inputValue(this.input).charAt(0).toUpperCase() +
-      this.filterService.inputValue(this.input).slice(1);
-    if (!arr.includes(newTag)) {
-      await this.syncWithFirebaseUsers(newTag);
-      this.addingTag.reset();
-    } else {
-      this.addingTag.setErrors({ exists: true });
-    }
-  }
-
-  async syncWithFirebaseUsers(newTag: string) {
-    try {
-      await addDoc(this.dataService.coll('users'), {
-        usage: 0,
-        tag: newTag,
-      }).then((doc: DocumentReference) => {
-        updateDoc(doc, {
-          id: doc.id,
-        });
-      });
-      this._snackBar.open('"' + newTag + '"-Tag added.', 'OK', {
-        duration: 5000,
-      });
-    } catch (error) {
-      console.log(error);
-      return;
-    }
   }
 
   openUserDetails(id: string) {

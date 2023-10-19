@@ -48,6 +48,12 @@ export class FirestoreDataService {
     return collection(this.fs, coll);
   }
 
+  getUsersOrders(id: string) {
+    return collectionData(
+      collection(this.fs, 'users/' + id + '/orders')
+    ) as Observable<any[]>;
+  }
+
   async getDocData(id: string) {
     const docRef = this.getDocRef(id);
     try {
