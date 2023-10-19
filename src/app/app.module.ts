@@ -47,7 +47,8 @@ import { AutofocusDirective } from './core/directives/autofocus.directive';
 import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
 import { UserDetailsComponent } from './modules/main/3-users/user-details/user-details.component';
 import { StatsComponent } from './modules/main/5-restaurant/stats/stats.component';
-import { OrderOverviewComponent } from './modules/main/1-orders/order-overview/order-overview.component';
+import { OrderOverviewComponent } from './modules/main/2-orders/order-overview/order-overview.component';
+import { OrderDetailsComponent } from './modules/main/2-orders/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { OrderOverviewComponent } from './modules/main/1-orders/order-overview/o
     UserDetailsComponent,
     StatsComponent,
     OrderOverviewComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,

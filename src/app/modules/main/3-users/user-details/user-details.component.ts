@@ -9,7 +9,6 @@ import {
 import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { CustomerProfile } from 'src/models/interfaces/customer-profile';
 import { Observable } from 'rxjs';
-import { FilterTableService } from 'src/app/core/services/filter-table.service';
 
 @Component({
   selector: 'app-user-details',

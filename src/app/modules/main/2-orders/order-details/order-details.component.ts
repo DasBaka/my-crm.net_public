@@ -2,18 +2,18 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { OrderOverviewDataSource, OrderOverviewItem } from './order-overview-datasource';
+import { OrderDetailsDataSource, OrderDetailsItem } from './order-details-datasource';
 
 @Component({
-  selector: 'app-order-overview',
-  templateUrl: './order-overview.component.html',
-  styleUrls: ['./order-overview.component.scss']
+  selector: 'app-order-details',
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.scss']
 })
-export class OrderOverviewComponent implements AfterViewInit {
+export class OrderDetailsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<OrderOverviewItem>;
-  dataSource = new OrderOverviewDataSource();
+  @ViewChild(MatTable) table!: MatTable<OrderDetailsItem>;
+  dataSource = new OrderDetailsDataSource();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];

@@ -10,7 +10,8 @@ import { AddDishComponent } from './modules/main/4-dishes/add-dish/add-dish.comp
 import { DeliveryHoursComponent } from './modules/main/5-restaurant/delivery-hours/delivery-hours.component';
 import { UserDetailsComponent } from './modules/main/3-users/user-details/user-details.component';
 import { StatsComponent } from './modules/main/5-restaurant/stats/stats.component';
-import { OrderOverviewComponent } from './modules/main/1-orders/order-overview/order-overview.component';
+import { OrderOverviewComponent } from './modules/main/2-orders/order-overview/order-overview.component';
+import { OrderDetailsComponent } from './modules/main/2-orders/order-details/order-details.component';
 
 const routes: Routes = [
   { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
@@ -48,6 +49,11 @@ const routes: Routes = [
         path: 'overview',
         title: 'Overview | MyCRM',
         component: OrderOverviewComponent,
+      },
+      {
+        path: 'order-details',
+        title: 'Order details | MyCRM',
+        component: OrderDetailsComponent,
       },
     ],
   },
