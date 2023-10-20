@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,7 +27,7 @@ import { NumberInput } from '@angular/cdk/coercion';
   templateUrl: './order-details.component.html',
   styleUrls: ['./order-details.component.scss'],
 })
-export class OrderDetailsComponent implements AfterViewInit {
+export class OrderDetailsComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<OrderDetailsItem>;
@@ -61,12 +67,14 @@ export class OrderDetailsComponent implements AfterViewInit {
     await this.getOrderData();
     if (this.order) {
       this.dataSource.data = this.order.cart.order;
-      console.log(this.dataSource.data);
-
       this.table.dataSource = this.dataSource;
       this.timestamp = this.order.timestamp;
     }
     this.prepareData();
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 
   prepareData() {

@@ -1,17 +1,151 @@
 <div class="container">
-  <h2>To do</h2>
+  <div class="d-flex justify-content-between align-items-center pt-3">
+    <h2>New</h2>
+    <small class="h5">({{ new.length }})</small>
+  </div>
 
-  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="doneList" class="list" (cdkDropListDropped)="drop($event)">
-    <div class="list-item" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  <div
+    cdkDropList
+    #newList="cdkDropList"
+    [cdkDropListData]="new"
+    [cdkDropListConnectedTo]="[processList]"
+    class="list list-0"
+    (cdkDropListDropped)="drop($event)">
+    <div
+      class="list-item"
+      *ngFor="let item of new"
+      [cdkDragDisabled]="saving"
+      cdkDrag>
+      <mat-list role="list">
+        <div matListItemTitle>TBD: {{ remainingTime(item.timestamp) }}</div>
+        <div
+          *ngFor="let dish of item.cart.order"
+          matListItemLine>
+          {{ dish.count }}x {{ dish.name }}
+        </div>
+      </mat-list>
+    </div>
   </div>
 </div>
 
 <div class="container">
-  <h2>Done</h2>
+  <div class="d-flex justify-content-between align-items-center pt-3">
+    <h2>In process</h2>
+    <small class="h5">({{ process.length }})</small>
+  </div>
 
-  <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="todoList" class="list" (cdkDropListDropped)="drop($event)">
-    <div class="list-item" *ngFor="let item of done" cdkDrag>{{item}}</div>
+  <div
+    cdkDropList
+    #processList="cdkDropList"
+    [cdkDropListData]="process"
+    [cdkDropListConnectedTo]="[newList, deliveryList]"
+    class="list list-1"
+    (cdkDropListDropped)="drop($event)">
+    <div
+      class="list-item pb-1"
+      *ngFor="let item of process"
+      [cdkDragDisabled]="saving"
+      cdkDrag>
+      <mat-list role="list">
+        <mat-list-item
+          role="listitem"
+          class="no-p-event"
+          *ngFor="let dish of item.cart.order">
+          {{ dish.count }}x {{ dish.name }}
+        </mat-list-item>
+        <div
+          matListItemLine
+          class="text-end">
+          TBD: {{ remainingTime(item.timestamp) }}
+        </div>
+      </mat-list>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center pt-3">
+    <h2>In delivery</h2>
+    <small class="h5">({{ delivery.length }})</small>
+  </div>
+
+  <div
+    cdkDropList
+    #deliveryList="cdkDropList"
+    [cdkDropListData]="delivery"
+    [cdkDropListConnectedTo]="[processList, doneList]"
+    class="list list-2"
+    (cdkDropListDropped)="drop($event)">
+    <div
+      class="list-item"
+      *ngFor="let item of delivery"
+      [cdkDragDisabled]="saving"
+      cdkDrag>
+      <mat-list role="list">
+        <div
+          mat-subheader
+          class="h5">
+          To:
+        </div>
+        <mat-list-item
+          matListItemTitle
+          class="height-fit ms-2">
+          <p class="mb-0">
+            {{ item.user?.data?.customer?.firstname }}
+            {{ item.user?.data?.customer?.lastname }}
+          </p>
+        </mat-list-item>
+        <mat-list-item
+          matListItemTitle
+          class="height-fit ms-2">
+          <p class="mb-0">
+            {{ item.user?.data?.address?.street }}
+            {{ item.user?.data?.address?.house }}
+          </p>
+        </mat-list-item>
+        <mat-list-item
+          matListItemTitle
+          class="height-fit ms-2">
+          <p class="mb-0">
+            {{ item.user?.data?.address?.postalCode }}
+            {{ item.user?.data?.address?.city }}
+          </p>
+        </mat-list-item>
+        <div
+          matListItemLine
+          class="text-end">
+          TBD: {{ remainingTime(item.timestamp) }}
+        </div>
+      </mat-list>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center pt-3">
+    <h2>Done</h2>
+    <small class="h5">({{ done.length }})</small>
+  </div>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="[deliveryList]"
+    class="list list-3"
+    (cdkDropListDropped)="drop($event)">
+    <div
+      class="list-item"
+      *ngFor="let item of done"
+      [cdkDragDisabled]="saving"
+      cdkDrag>
+      <mat-list role="list">
+        <div matListItemLine>Ordered: {{ getDate(item.timestamp) }}</div>
+        <div
+          *ngFor="let dish of item.cart.order"
+          matListItemLine>
+          {{ dish.count }}x {{ dish.name }}
+        </div>
+      </mat-list>
+    </div>
   </div>
 </div>
