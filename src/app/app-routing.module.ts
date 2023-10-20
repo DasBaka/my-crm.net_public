@@ -44,7 +44,7 @@ const routes: Routes = [
   {
     path: 'orders',
     children: [
-      { path: 'kanban', title: 'My Board | MyCRM', component: OrdersComponent },
+      { path: 'board', title: 'My Board | MyCRM', component: OrdersComponent },
       {
         path: 'overview',
         title: 'Overview | MyCRM',

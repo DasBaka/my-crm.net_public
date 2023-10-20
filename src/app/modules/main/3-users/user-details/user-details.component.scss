@@ -30,3 +30,20 @@ $takeaway-clone-primary: mat.define-palette(mat.$orange-palette);
     color: mat.get-color-from-palette($takeaway-clone-primary, 800) !important;
   }
 }
+
+.direct-link {
+  position: relative;
+
+  &::after {
+    $size: 0.66rem;
+    content: 'launch';
+    height: $size;
+    font-family: 'Material Icons Round';
+    font-size: $size;
+    display: block;
+    position: absolute;
+    right: -$size;
+    bottom: 50%;
+    z-index: 0;
+  }
+}

@@ -29,7 +29,7 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
   dataService: FirestoreDataService = inject(FirestoreDataService);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['time', 'items', 'price'];
+  displayedColumns = ['status', 'time', 'customer', 'items', 'price'];
   private dataSub!: Subscription;
 
   constructor() {}
@@ -53,10 +53,12 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
 
   getDate(time: string) {
     let date = new Date(time);
-    return date.toLocaleString('en-GB', {
+    return new Intl.DateTimeFormat('en-GB', {
       hour12: true,
-      timeStyle: 'short',
-      dateStyle: 'medium',
-    });
+      day: 'numeric',
+      month: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format(date);
   }
 }

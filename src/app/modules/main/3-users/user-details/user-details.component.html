@@ -13,26 +13,22 @@
         <mat-card-title>
           <a
             href="mailto:{{ contact?.mail }}"
-            class="d-flex gap-2 align-items-center"
+            target="_blank"
+            class="d-flex gap-2 align-items-center direct-link justify-content-end"
             ><mat-icon
               *ngIf="contact?.mail"
               fontIcon="mail"></mat-icon
-            >{{ contact?.mail
-            }}<mat-icon
-              *ngIf="contact?.mail"
-              fontIcon="launch"></mat-icon
-          ></a>
+            >{{ contact?.mail }}</a
+          >
           <a
             href="tel:{{ contact?.phone }}"
-            class="d-flex gap-2 align-items-center"
+            target="_blank"
+            class="d-flex gap-2 align-items-center direct-link justify-content-end"
             ><mat-icon
               *ngIf="contact?.phone"
               fontIcon="call"></mat-icon
-            >{{ contact?.phone
-            }}<mat-icon
-              *ngIf="contact?.phone"
-              fontIcon="launch"></mat-icon
-          ></a>
+            >{{ contact?.phone }}</a
+          >
         </mat-card-title>
       </mat-card-title-group>
     </mat-card-header>

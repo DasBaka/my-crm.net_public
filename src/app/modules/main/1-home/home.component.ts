@@ -18,7 +18,7 @@ export class HomeComponent {
           {
             title: 'Orders',
             icon: 'dashboard',
-            link: '',
+            link: '../orders/overview',
             cols: 1,
             rows: 1,
             text: [
@@ -29,7 +29,7 @@ export class HomeComponent {
           {
             title: 'Users',
             icon: 'manage_accounts',
-            link: '',
+            link: '../users',
             cols: 1,
             rows: 1,
             text: ['Edit reigstered users', 'Analyze their orders'],
@@ -45,7 +45,7 @@ export class HomeComponent {
           {
             title: 'Restaurant',
             icon: 'person_play',
-            link: '',
+            link: '../restaurant/stats',
             cols: 1,
             rows: 1,
             text: ['See general statistics', 'Edit the data of the restaurant'],
@@ -57,7 +57,7 @@ export class HomeComponent {
         {
           title: 'Orders',
           icon: 'dashboard',
-          link: '',
+          link: '../orders/overview',
           cols: 1,
           rows: 1,
           text: [
@@ -68,7 +68,7 @@ export class HomeComponent {
         {
           title: 'Users',
           icon: 'manage_accounts',
-          link: '',
+          link: '../users',
           cols: 1,
           rows: 1,
           text: ['Edit reigstered users', 'Analyze their orders'],
@@ -84,7 +84,7 @@ export class HomeComponent {
         {
           title: 'Restaurant',
           icon: 'person_play',
-          link: '',
+          link: '../restaurant/stats',
           cols: 1,
           rows: 1,
           text: ['See general statistics', 'Edit the data of the restaurant'],
