@@ -14,20 +14,16 @@
           <a
             href="mailto:{{ contact?.mail }}"
             target="_blank"
+            *ngIf="contact?.mail"
             class="d-flex gap-2 align-items-center direct-link justify-content-end"
-            ><mat-icon
-              *ngIf="contact?.mail"
-              fontIcon="mail"></mat-icon
-            >{{ contact?.mail }}</a
+            ><mat-icon fontIcon="mail"></mat-icon>{{ contact?.mail }}</a
           >
           <a
             href="tel:{{ contact?.phone }}"
             target="_blank"
+            *ngIf="contact?.phone"
             class="d-flex gap-2 align-items-center direct-link justify-content-end"
-            ><mat-icon
-              *ngIf="contact?.phone"
-              fontIcon="call"></mat-icon
-            >{{ contact?.phone }}</a
+            ><mat-icon fontIcon="call"></mat-icon>{{ contact?.phone }}</a
           >
         </mat-card-title>
       </mat-card-title-group>

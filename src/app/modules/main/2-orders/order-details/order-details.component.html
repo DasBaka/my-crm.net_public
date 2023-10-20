@@ -1,1 +1,130 @@
-<p>order-details works!</p>
+<div class="container position-relative">
+  <mat-card class="my-5 px-4 py-2 order-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title class="first-letter-uppercase"
+          ><span class="h2">{{ order?.status }}</span></mat-card-title
+        >
+      </mat-card-title-group>
+      <mat-card-title-group class="justify-content-end">
+        <mat-card-title>
+          <span class="h3"
+            >TBD: {{ order?.status == 'done' ? 'Done' : time }}</span
+          >
+          <mat-card-subtitle>
+            <span
+              >Order from {{ order ? getDate(order.timestamp) : '' }}</span
+            ></mat-card-subtitle
+          >
+        </mat-card-title>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content class="py-4 row d-flex">
+      <div class="col">
+        <h4>To:</h4>
+        <p>{{ u?.firstname }} {{ u?.lastname }}</p>
+        <p>{{ address?.street }} {{ address?.house }}</p>
+        <p>{{ address?.postalCode }} {{ address?.city }}</p>
+      </div>
+      <div class="col">
+        <h4>Contact:</h4>
+        <a
+          *ngIf="contact?.mail"
+          href="mailto:{{ contact?.mail }}"
+          target="_blank"
+          class="d-flex gap-2 align-items-center direct-link"
+          ><mat-icon fontIcon="mail"></mat-icon>{{ contact?.mail }}</a
+        >
+        <a
+          *ngIf="contact?.phone"
+          href="tel:{{ contact?.phone }}"
+          target="_blank"
+          class="d-flex gap-2 align-items-center direct-link"
+          ><mat-icon fontIcon="call"></mat-icon>{{ contact?.phone }}</a
+        >
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="bg-mat-white my-5">
+  <div class="container">
+    <table
+      mat-table
+      class="full-width-table"
+      matSort
+      aria-label="Elements">
+      <!-- Id Column -->
+      <ng-container matColumnDef="times">
+        <th
+          mat-header-cell
+          *matHeaderCellDef></th>
+        <td
+          mat-cell
+          *matCellDef="let row">
+          {{ row.count }}x
+        </td>
+        <td
+          mat-footer-cell
+          *matFooterCellDef>
+          Total
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="item">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          Item
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let row">
+          {{ row.name }}
+        </td>
+        <td
+          mat-footer-cell
+          *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          Total price
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let row">
+          <span>{{ row.price }}</span>
+        </td>
+        <td
+          mat-footer-cell
+          *matFooterCellDef>
+          {{ order?.cart?.price }}
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr
+        mat-footer-row
+        *matFooterRowDef="displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      #paginator
+      [length]="0"
+      [pageIndex]="0"
+      [pageSize]="0"
+      aria-label="Select page"
+      class="d-none">
+    </mat-paginator>
+  </div>
+</div>

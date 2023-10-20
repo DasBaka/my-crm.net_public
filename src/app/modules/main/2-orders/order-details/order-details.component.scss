@@ -1,0 +1,54 @@
+@use '@angular/material' as mat;
+$takeaway-clone-primary: mat.define-palette(mat.$orange-palette);
+
+.full-width-table {
+  width: 100%;
+}
+
+.order-card {
+  $height: 16;
+
+  height: #{$height + 'rem'};
+  &:before {
+    content: 'restaurant_menu';
+    height: #{$height * 1.25 + 'rem'};
+    font-family: 'Material Icons Round';
+    font-size: #{$height * 1.25 + 'rem'};
+    display: block;
+    position: absolute;
+    right: 0%;
+    bottom: #{$height * -0.125 + 'rem'};
+    z-index: 0;
+
+    -webkit-filter: grayscale(80%) opacity(10%);
+
+    filter: grayscale(80%) opacity(10%);
+    color: mat.get-color-from-palette($takeaway-clone-primary, 800) !important;
+  }
+}
+
+.direct-link {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+
+  &::after {
+    $size: 0.66rem;
+    content: 'launch';
+    height: $size;
+    font-family: 'Material Icons Round';
+    font-size: $size;
+    display: block;
+    position: absolute;
+    right: -$size;
+    bottom: 20%;
+    z-index: 0;
+  }
+}
+
+tr.mat-mdc-footer-row td {
+  border-top: 3px double
+    var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12));
+  font-weight: bold;
+}

@@ -56,12 +56,14 @@
             matTooltip="Link"
             (click)="$event.stopPropagation()"
             href="tel:{{ row.contact.tel }}"
+            target="_blank"
             aria-label="Example icon-button with a heart icon">
             <mat-icon>call</mat-icon>
           </a>
           <a
             mat-icon-button
             matTooltip="Link"
+            target="_blank"
             (click)="$event.stopPropagation()"
             href="mailto:{{ row.contact.mail }}"
             aria-label="Example icon-button with a heart icon">

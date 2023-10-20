@@ -29,7 +29,14 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
   dataService: FirestoreDataService = inject(FirestoreDataService);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['status', 'time', 'customer', 'items', 'price'];
+  displayedColumns = [
+    'status',
+    'time',
+    'customer',
+    'items',
+    'price',
+    'buttons',
+  ];
   private dataSub!: Subscription;
 
   constructor() {}

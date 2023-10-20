@@ -9,6 +9,7 @@ export interface OrderProfile {
     data: CustomerProfile;
   };
   cart: { order: CartItem[]; price: string };
+  status?: string;
 }
 
 export type CartItem = DishProfile & {

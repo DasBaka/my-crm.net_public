@@ -51,7 +51,7 @@ const routes: Routes = [
         component: OrderOverviewComponent,
       },
       {
-        path: 'order-details',
+        path: 'details',
         title: 'Order details | MyCRM',
         component: OrderDetailsComponent,
       },
