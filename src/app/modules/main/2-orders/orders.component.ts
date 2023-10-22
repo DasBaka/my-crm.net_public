@@ -115,4 +115,41 @@ export class OrdersComponent implements OnDestroy {
       dateStyle: 'medium',
     });
   }
+
+  getTimePriority(time: number, state: string) {
+    let t = Date.now();
+    if (t - time < this.isTimeGood(state)) {
+      return 'green-prio';
+    } else if (t - time < this.isTimeOK(state)) {
+      return 'yellow-prio';
+    } else {
+      return 'red-prio';
+    }
+  }
+
+  isTimeGood(state: string) {
+    switch (state) {
+      case 'new':
+        return 600000;
+      case 'process':
+        return 2400000;
+      case 'delivery':
+        return 3600000;
+      default:
+        return 0;
+    }
+  }
+
+  isTimeOK(state: string) {
+    switch (state) {
+      case 'new':
+        return 1200000;
+      case 'process':
+        return 3600000;
+      case 'delivery':
+        return 4800000;
+      default:
+        return 0;
+    }
+  }
 }

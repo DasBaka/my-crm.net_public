@@ -17,7 +17,23 @@
       [cdkDragDisabled]="saving"
       cdkDrag>
       <mat-list role="list">
-        <div matListItemTitle>TBD: {{ remainingTime(item.timestamp) }}</div>
+        <div
+          matListItemTitle
+          class="d-flex align-items gap-2">
+          <span
+            class="material-icons-outlined"
+            [ngClass]="getTimePriority(item.timestamp, 'new')">
+            access_time_filled </span
+          ><span>TBD: {{ remainingTime(item.timestamp) }}</span>
+        </div>
+        <mat-divider class="pb-3"></mat-divider>
+        <div matListItemTitle>
+          From:
+          <b
+            >{{ item.user?.data?.customer?.firstname }}
+            {{ item.user?.data?.customer?.lastname }}</b
+          >
+        </div>
         <div
           *ngFor="let dish of item.cart.order"
           matListItemLine>
@@ -55,7 +71,8 @@
         </mat-list-item>
         <div
           matListItemLine
-          class="text-end">
+          class="text-end pb-3"
+          [ngClass]="getTimePriority(item.timestamp, 'process')">
           TBD: {{ remainingTime(item.timestamp) }}
         </div>
       </mat-list>
@@ -81,11 +98,6 @@
       [cdkDragDisabled]="saving"
       cdkDrag>
       <mat-list role="list">
-        <div
-          mat-subheader
-          class="h5">
-          To:
-        </div>
         <mat-list-item
           matListItemTitle
           class="height-fit ms-2">
@@ -112,7 +124,8 @@
         </mat-list-item>
         <div
           matListItemLine
-          class="text-end">
+          class="text-end"
+          [ngClass]="getTimePriority(item.timestamp, 'delivery')">
           TBD: {{ remainingTime(item.timestamp) }}
         </div>
       </mat-list>

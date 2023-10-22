@@ -15,6 +15,7 @@ import {
 import { Subscription } from 'rxjs';
 import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { CustomerProfile } from 'src/models/interfaces/customer-profile';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-overview',
@@ -39,7 +40,10 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
   ];
   private dataSub!: Subscription;
 
-  constructor() {}
+  dblClick = false;
+  timeAtClick = 0;
+
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngAfterViewInit(): void {
     this.dataSub = this.dataService.orderColl$.subscribe((data) => {
@@ -67,5 +71,22 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
       hour: 'numeric',
       minute: 'numeric',
     }).format(date);
+  }
+
+  openOrderDetails(id: string) {
+    this.router.navigate(['../details'], {
+      relativeTo: this.route,
+      state: { id: id },
+    });
+  }
+
+  simulateDblClick(id: string) {
+    let now = Date.now();
+    if (now - this.timeAtClick < 300) {
+      this.openOrderDetails(id);
+      return;
+    }
+    this.timeAtClick = now;
+    return;
   }
 }

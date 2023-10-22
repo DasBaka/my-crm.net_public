@@ -91,7 +91,10 @@
           *matCellDef="let row"
           class="d-flex justify-content-between align-items-center">
           <span>{{ row.cart.price }}</span
-          ><a mat-icon-button>
+          ><a
+            mat-icon-button
+            [routerLink]="['../../orders/details']"
+            [state]="{ id: row.id }">
             <mat-icon>launch</mat-icon>
           </a>
         </td>

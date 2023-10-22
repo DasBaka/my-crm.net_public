@@ -78,10 +78,22 @@ export class OrderOverviewDataSource extends DataSource<OrderOverviewItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        /*  case 'name':
-          return compare(a.name, b.name, isAsc);
-        case 'id':
-          return compare(+a.id, +b.id, isAsc); */
+        case 'status':
+          return compare(a.status ?? '', b.status ?? '', isAsc);
+        case 'time':
+          return compare(a.timestamp, b.timestamp, isAsc);
+        case 'customer':
+          return compare(
+            a.user?.data.customer.lastname +
+              ',' +
+              a.user?.data.customer.firstname,
+            b.user?.data.customer.lastname +
+              ',' +
+              b.user?.data.customer.firstname,
+            isAsc
+          );
+        case 'price':
+          return compare(a.cart.price, b.cart.price, isAsc);
         default:
           return 0;
       }
