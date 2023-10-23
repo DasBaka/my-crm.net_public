@@ -52,6 +52,7 @@ import { OrderDetailsComponent } from './modules/main/2-orders/order-details/ord
 import { LoginComponent } from './modules/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ImprintComponent } from './modules/imprint/imprint.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     OrderOverviewComponent,
     OrderDetailsComponent,
     LoginComponent,
+    ImprintComponent,
   ],
   imports: [
     BrowserModule,

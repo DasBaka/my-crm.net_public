@@ -11,7 +11,8 @@
         >M<small>y-</small>CRM<small>.net</small></a
       ></mat-toolbar
     >
-    <mat-nav-list>
+    <mat-nav-list
+      class="d-flex justify-content-between flex-column flex-grow-1">
       <mat-accordion class="example-headers-align">
         <mat-expansion-panel
           [expanded]="step === 1"
@@ -98,6 +99,13 @@
           >
         </mat-expansion-panel>
       </mat-accordion>
+      <a
+        class="position-absolute bottom-0 start-0 m-2"
+        mat-icon-button
+        [routerLink]="['imprint']"
+        aria-label="Example icon-button with a heart icon">
+        <mat-icon>info</mat-icon>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

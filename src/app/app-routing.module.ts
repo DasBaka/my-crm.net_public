@@ -14,12 +14,18 @@ import { OrderOverviewComponent } from './modules/main/2-orders/order-overview/o
 import { OrderDetailsComponent } from './modules/main/2-orders/order-details/order-details.component';
 import { LoginComponent } from './modules/login/login.component';
 import { NavigationComponent } from './modules/navigation/navigation.component';
+import { ImprintComponent } from './modules/imprint/imprint.component';
 
 const routes: Routes = [
   {
     path: '',
     component: NavigationComponent,
     children: [
+      {
+        path: 'imprint',
+        title: 'Imprint | MyCRM',
+        component: ImprintComponent,
+      },
       { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
       {
         path: 'dishes',

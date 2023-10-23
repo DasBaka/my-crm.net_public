@@ -30,3 +30,7 @@ mat-sidenav-content {
 mat-expansion-panel:not([class*='mat-elevation-z']) {
   box-shadow: none;
 }
+
+.mat-drawer-inner-container {
+  position: relative;
+}
