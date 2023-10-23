@@ -12,6 +12,7 @@ import { UserDetailsComponent } from './modules/main/3-users/user-details/user-d
 import { StatsComponent } from './modules/main/5-restaurant/stats/stats.component';
 import { OrderOverviewComponent } from './modules/main/2-orders/order-overview/order-overview.component';
 import { OrderDetailsComponent } from './modules/main/2-orders/order-details/order-details.component';
+import { LoginComponent } from './modules/login/login.component';
 
 const routes: Routes = [
   { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
@@ -88,9 +89,10 @@ const routes: Routes = [
       },
     ],
   },
+  { path: '', component: LoginComponent },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];

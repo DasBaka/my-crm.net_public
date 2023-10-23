@@ -49,6 +49,9 @@ import { UserDetailsComponent } from './modules/main/3-users/user-details/user-d
 import { StatsComponent } from './modules/main/5-restaurant/stats/stats.component';
 import { OrderOverviewComponent } from './modules/main/2-orders/order-overview/order-overview.component';
 import { OrderDetailsComponent } from './modules/main/2-orders/order-details/order-details.component';
+import { LoginComponent } from './modules/login/login.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,7 @@ import { OrderDetailsComponent } from './modules/main/2-orders/order-details/ord
     StatsComponent,
     OrderOverviewComponent,
     OrderDetailsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +98,8 @@ import { OrderDetailsComponent } from './modules/main/2-orders/order-details/ord
     MatExpansionModule,
     MatChipsModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseCrm)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
