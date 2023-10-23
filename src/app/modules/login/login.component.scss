@@ -11,3 +11,18 @@ $takeaway-clone-primary: mat.define-palette(mat.$orange-palette);
 a.link {
   color: mat.get-color-from-palette($takeaway-clone-primary, 600) !important;
 }
+
+.mca {
+  &:has(button[type='button']) {
+    + small {
+      opacity: 0;
+      transition: 200ms opacity ease-in-out;
+    }
+  }
+  &:has(button[type='button']:hover) {
+    + small {
+      opacity: 1;
+      transition: 200ms opacity ease-in-out;
+    }
+  }
+}

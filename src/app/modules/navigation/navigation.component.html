@@ -7,7 +7,9 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
     <mat-toolbar
-      ><a href="/">T<small>ake</small>A<small>way</small>-CRM</a></mat-toolbar
+      ><a [routerLink]="['home']"
+        >M<small>y-</small>CRM<small>.net</small></a
+      ></mat-toolbar
     >
     <mat-nav-list>
       <mat-accordion class="example-headers-align">

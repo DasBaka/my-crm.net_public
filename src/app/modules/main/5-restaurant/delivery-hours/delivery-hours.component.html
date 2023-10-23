@@ -28,10 +28,10 @@
               [checkboxPosition]="'before'"
               [selected]="day.isOpen"
               [value]="day.day">
-              <div class="row">
+              <div class="row align-items-center">
                 <div class="col">{{ day.day }}</div>
                 <div
-                  class="col d-flex"
+                  class="col-md flex-column flex-md-row d-flex align-items-md-center"
                   (click)="$event.stopPropagation()">
                   <span
                     [style.color]="
@@ -94,6 +94,7 @@
                 </div>
               </div>
             </mat-list-option>
+            <mat-divider class="pb-2"></mat-divider>
           </div>
         </mat-selection-list>
       </div>

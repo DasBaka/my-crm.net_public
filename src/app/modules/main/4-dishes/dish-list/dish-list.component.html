@@ -1,7 +1,8 @@
 <div
   class="mat-elevation-z8"
   [style.filter]="del ? 'brightness(96%) grayscale(4%)' : ''">
-  <mat-toolbar class="bg-mat-white h-auto py-2 justify-content-between">
+  <mat-toolbar
+    class="bg-mat-white h-auto py-2 justify-content-between align-items-center flex-column-reverse flex-md-row">
     <div
       class="d-flex gap-3"
       *ngIf="!anonymous">
@@ -134,12 +135,12 @@
 
     <tr
       mat-header-row
-      *matHeaderRowDef="displayedColumns"></tr>
+      *matHeaderRowDef="getDisplayedColumns()"></tr>
     <tr
       mat-row
       [ngClass]="{ selectedRow: selected == row.id, deleteState: del }"
       (click)="selected = row.id; $event.stopPropagation()"
-      *matRowDef="let row; columns: displayedColumns"></tr>
+      *matRowDef="let row; columns: getDisplayedColumns()"></tr>
   </table>
 
   <mat-paginator

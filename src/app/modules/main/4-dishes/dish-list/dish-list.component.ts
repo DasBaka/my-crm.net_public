@@ -17,8 +17,9 @@ import { DishProfile } from 'src/models/interfaces/dish-profile.interface';
 import { FilterTableService } from 'src/app/core/services/filter-table.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/modules/dialog/delete-dialog/delete-dialog.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map, shareReplay } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-dish-list',
@@ -40,8 +41,22 @@ export class DishListComponent implements AfterViewInit, OnDestroy {
   del = false;
   anonymous: boolean;
 
+  private breakpointObserver = inject(BreakpointObserver);
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.HandsetPortrait)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
+  mobile!: boolean;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'text', 'cost', 'tags', 'buttons'];
+  displayedColumns = [
+    { def: 'name', show: true },
+    { def: 'text', show: false },
+    { def: 'cost', show: true },
+    { def: 'tags', show: false },
+    { def: 'buttons', show: true },
+  ];
 
   constructor(
     private router: Router,
@@ -49,6 +64,9 @@ export class DishListComponent implements AfterViewInit, OnDestroy {
     public dialog: MatDialog
   ) {
     this.anonymous = this.authService.anynonimous;
+    this.isHandset$.subscribe((data) => {
+      this.mobile = data;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -120,5 +138,12 @@ export class DishListComponent implements AfterViewInit, OnDestroy {
       this.del = false;
       this.table.renderRows();
     });
+  }
+
+  getDisplayedColumns(): string[] {
+    const isMobile = this.mobile;
+    return this.displayedColumns
+      .filter((cd) => !isMobile || cd.show)
+      .map((cd) => cd.def);
   }
 }

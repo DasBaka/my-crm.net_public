@@ -36,13 +36,7 @@ export class NavigationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private titleStrategy: TitleStrategy
   ) {
-    if (!this.authService.auth.currentUser) {
-      this.router.navigate(['login']);
-    }
     this.anonymous = this.authService.anynonimous;
-  }
-
-  ngOnInit() {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -52,6 +46,12 @@ export class NavigationComponent implements OnInit {
           .split(' | ')[0];
         this.URLtitle = 'MyCRM - ' + string;
       });
+  }
+
+  ngOnInit() {
+    if (!this.authService.auth.currentUser) {
+      this.router.navigate(['login']);
+    }
   }
 
   getChild(activatedRoute: ActivatedRoute): any {

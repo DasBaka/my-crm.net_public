@@ -30,6 +30,14 @@
               #mailInput
               (input)="currError = ''"
               formControlName="mail" />
+            <mat-hint
+              align="start"
+              matTooltip="admin@ad.min"
+              matTooltipPosition="above"
+              #hoverHint1="matTooltip"
+              matTooltipShowDelay="500"
+              >Hint: Hover here</mat-hint
+            >
             <mat-error *ngIf="loginForm.get('mail')?.hasError('required')">
               <strong>*Erforderlich!</strong>
             </mat-error>
@@ -46,8 +54,7 @@
             matTooltip="6-20 Zeichen: mind. je 1x Groß-, Kleinbuchstabe, Zahl und
               Sonderzeichen"
             #tooltip1="matTooltip"
-            matTooltipPosition="below"
-            matTooltipPositionAtOrigin="true">
+            matTooltipPosition="above">
             <mat-label>Passwort</mat-label>
             <input
               matInput
@@ -55,6 +62,14 @@
               (focus)="tooltip1.show()"
               (input)="currError = ''"
               formControlName="pw" />
+            <mat-hint
+              align="start"
+              matTooltip="Admin-123"
+              matTooltipPosition="above"
+              matTooltipShowDelay="500"
+              #hoverHint2="matTooltip"
+              >Hint: Hover here.</mat-hint
+            >
             <mat-error *ngIf="loginForm.get('pw')?.hasError('required')">
               <strong>*Erforderlich!</strong>
             </mat-error>
@@ -67,7 +82,7 @@
             class="pb-4 pt-2"
             >Passwort wurde zurückgesetzt. Überprüfen Sie ihre Mail!</span
           >
-          <mat-card-actions class="d-flex gap-4">
+          <mat-card-actions class="d-flex gap-4 mca">
             <button
               *ngIf="!resetPw"
               [disabled]="
@@ -85,14 +100,15 @@
               [disabled]="loading && loginForm.valid"
               mat-raised-button
               color="accent"
-              type="reset"
+              type="button"
               (click)="guestLogin()">
               <mat-spinner
                 *ngIf="loading"
                 diameter="36"></mat-spinner>
-              <span *ngIf="!loading">Guest</span>
+              <span *ngIf="!loading">Guest*</span>
             </button>
           </mat-card-actions>
+          <small #restriction>*Guest has restricted actions.</small>
         </div>
       </form>
     </mat-card-content>

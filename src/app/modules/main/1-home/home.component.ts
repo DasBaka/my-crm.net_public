@@ -23,10 +23,7 @@ export class HomeComponent {
               link: '../orders/overview',
               cols: 4,
               rows: 1,
-              text: [
-                'Organize current orders',
-                'Get a grasp of the current statistics',
-              ],
+              text: ['Organize current orders'],
             },
             {
               title: 'Users',
@@ -34,7 +31,7 @@ export class HomeComponent {
               link: '../users',
               cols: 4,
               rows: 1,
-              text: ['Edit reigstered users', 'Analyze their orders'],
+              text: ['Edit registered users'],
             },
             {
               title: 'Dishes',
@@ -42,7 +39,7 @@ export class HomeComponent {
               link: '../dishes/list',
               cols: 4,
               rows: 1,
-              text: ['See all listed dishes', 'Rearrange tags'],
+              text: ['See all listed dishes and tags'],
             },
             {
               title: 'Restaurant',
@@ -50,10 +47,7 @@ export class HomeComponent {
               link: '../restaurant/stats',
               cols: 4,
               rows: 1,
-              text: [
-                'See general statistics',
-                'Edit the data of the restaurant',
-              ],
+              text: ['See general statistics'],
             },
           ];
         }
@@ -65,10 +59,7 @@ export class HomeComponent {
             link: '../orders/overview',
             cols: 1,
             rows: 1,
-            text: [
-              'Organize current orders',
-              'Get a grasp of the current statistics',
-            ],
+            text: ['Organize current orders'],
           },
           {
             title: 'Users',
@@ -76,7 +67,7 @@ export class HomeComponent {
             link: '../users',
             cols: 1,
             rows: 1,
-            text: ['Edit reigstered users', 'Analyze their orders'],
+            text: ['Edit reigstered users'],
           },
           {
             title: 'Dishes',
@@ -84,7 +75,7 @@ export class HomeComponent {
             link: '../dishes/list',
             cols: 1,
             rows: 1,
-            text: ['See all listed dishes', 'Rearrange tags'],
+            text: ['See all listed dishes and tags'],
           },
           {
             title: 'Restaurant',
@@ -92,7 +83,7 @@ export class HomeComponent {
             link: '../restaurant/stats',
             cols: 1,
             rows: 1,
-            text: ['See general statistics', 'Edit the data of the restaurant'],
+            text: ['See general statistics'],
           },
         ];
       })
