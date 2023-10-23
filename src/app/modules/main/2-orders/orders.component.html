@@ -6,6 +6,7 @@
 
   <div
     cdkDropList
+    [cdkDropListDisabled]="anonymous"
     #newList="cdkDropList"
     [cdkDropListData]="new"
     [cdkDropListConnectedTo]="[processList]"
@@ -54,6 +55,7 @@
 
   <div
     cdkDropList
+    [cdkDropListDisabled]="anonymous"
     #processList="cdkDropList"
     [cdkDropListData]="process"
     [cdkDropListConnectedTo]="[newList, deliveryList]"
@@ -89,6 +91,7 @@
 
   <div
     cdkDropList
+    [cdkDropListDisabled]="anonymous"
     #deliveryList="cdkDropList"
     [cdkDropListData]="delivery"
     [cdkDropListConnectedTo]="[processList, doneList]"
@@ -143,6 +146,7 @@
 
   <div
     cdkDropList
+    [cdkDropListDisabled]="anonymous"
     #doneList="cdkDropList"
     [cdkDropListData]="done"
     [cdkDropListConnectedTo]="[deliveryList]"

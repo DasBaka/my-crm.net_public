@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { DocumentReference, addDoc, updateDoc } from 'firebase/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FilterTableService } from 'src/app/core/services/filter-table.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-dishes-overview',
@@ -29,12 +30,16 @@ export class TagsComponent implements AfterViewInit {
   dataSource = new TagsDataSource();
   dataService: FirestoreDataService = inject(FirestoreDataService);
   filterService: FilterTableService = inject(FilterTableService);
+  private authService = inject(AuthService);
+  anonymous: boolean;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tag'];
   selected: string = '';
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar) {
+    this.anonymous = this.authService.anynonimous;
+  }
 
   ngAfterViewInit(): void {
     this.dataService.tagColl$.subscribe((data) => {

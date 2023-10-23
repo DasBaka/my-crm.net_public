@@ -5,7 +5,7 @@
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="true">
+    [opened]="!(isHandset$ | async)">
     <mat-toolbar
       ><a href="/">T<small>ake</small>A<small>way</small>-CRM</a></mat-toolbar
     >
@@ -83,11 +83,13 @@
             >Stats</a
           >
           <a
+            *ngIf="!anonymous"
             mat-list-item
             [routerLink]="['restaurant/responsible']"
             >Responsible</a
           >
           <a
+            *ngIf="!anonymous"
             mat-list-item
             [routerLink]="['restaurant/hours']"
             >Delivery hours</a
@@ -121,7 +123,8 @@
         <button
           type="button"
           aria-label="Toggle sidenav"
-          mat-icon-button>
+          mat-icon-button
+          (click)="logout()">
           <mat-icon>power_settings_new</mat-icon>
         </button>
       </div>

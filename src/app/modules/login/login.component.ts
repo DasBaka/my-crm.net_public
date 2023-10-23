@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
+import { onAuthStateChanged } from '@angular/fire/auth';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +8,7 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -14,7 +16,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent {
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
   loginForm!: FormGroup;
@@ -24,14 +26,8 @@ export class LoginComponent implements AfterViewInit {
   resetted = false;
   currError = '';
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.initForms();
-  }
-
-  ngAfterViewInit(): void {
-    this.regForm.controls['check'].addValidators(
-      this.comparePW(this.regForm.controls['pw'])
-    );
   }
 
   initForms() {
@@ -51,36 +47,6 @@ export class LoginComponent implements AfterViewInit {
         ],
       ],
     });
-    this.regForm = this.fb.group({
-      mail: [
-        null,
-        [Validators.required, Validators.email, this.fbError('reg')],
-      ],
-      pw: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern(
-            /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/
-          ),
-        ],
-      ],
-      check: [null, [Validators.required]],
-    });
-  }
-
-  comparePW(pw: AbstractControl): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (!value) {
-        return null;
-      }
-      if (pw.value === value) {
-        return null;
-      } else {
-        return { match_error: true };
-      }
-    };
   }
 
   fbError(type: string): ValidatorFn {
@@ -115,7 +81,9 @@ export class LoginComponent implements AfterViewInit {
     try {
       await this.authService
         .signIn(form['mail'].value, form['pw'].value)
-        .then(() => {});
+        .then(() => {
+          this.router.navigate(['home']);
+        });
     } catch (error) {
       this.checkForLoginError(error);
     }
@@ -131,15 +99,15 @@ export class LoginComponent implements AfterViewInit {
     this.loginForm.enable();
   }
 
-  async onRegister() {
+  /* async onRegister() {
     if (this.regForm.valid) {
       this.whileLoading();
       await this.tryReg();
       this.whileLoading();
     }
-  }
+  } */
 
-  async tryReg() {
+  /* async tryReg() {
     let form = this.regForm.controls;
     try {
       await this.authService.register(form['mail'].value, form['pw'].value);
@@ -147,14 +115,14 @@ export class LoginComponent implements AfterViewInit {
     } catch (error) {
       this.checkForRegisterError(error);
     }
-  }
+  } */
 
-  checkForRegisterError(error: unknown) {
+  /*   checkForRegisterError(error: unknown) {
     if (error == 'Firebase: Error (auth/email-already-in-use).') {
       this.currError = 'reg-user';
     }
     this.regForm.enable();
-  }
+  } */
 
   whileLoading() {
     this.loading = !this.loading;
@@ -183,5 +151,13 @@ export class LoginComponent implements AfterViewInit {
     } catch (error) {
       this.checkForLoginError(error);
     }
+  }
+
+  async guestLogin() {
+    this.whileLoading();
+    await this.authService.guestLogin().then(() => {
+      this.router.navigate(['home']);
+    });
+    this.whileLoading();
   }
 }

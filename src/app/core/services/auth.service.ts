@@ -6,13 +6,13 @@ import {
   user,
   getAuth,
   EmailAuthProvider,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
   deleteUser,
   reauthenticateWithCredential,
+  signInAnonymously,
 } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
@@ -24,6 +24,7 @@ export class AuthService {
   user$!: Observable<User | null>;
   userid: string | null = null;
   currentUser: User | null = null;
+  anynonimous = false;
 
   constructor(private allFirebaseApps: FirebaseApps) {
     let app = this.findApp();
@@ -31,27 +32,27 @@ export class AuthService {
       this.auth = getAuth(app);
       this.user$ = user(this.auth);
     }
-    /*  onAuthStateChanged(this.auth, (user) => {
+    onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.userid = user.uid;
       } else {
-        this.userid = null;
+        this.logout();
       }
-    }); */
+    });
   }
 
   findApp() {
-    let app = this.allFirebaseApps.find((obj) => obj.name === 'DEFAULT');
+    let app = this.allFirebaseApps.find((obj) => obj.name === '[DEFAULT]');
     return app;
   }
 
-  async register(mail: any, pw: string) {
-    await createUserWithEmailAndPassword(this.auth, mail, pw)
-      .then((userCredential) => {
-        this.currentUser = userCredential.user;
+  async guestLogin() {
+    await signInAnonymously(this.auth)
+      .then(() => {
+        this.anynonimous = true;
       })
-      .catch((e) => {
-        throw e.message;
+      .catch((error) => {
+        throw error;
       });
   }
 
@@ -72,7 +73,12 @@ export class AuthService {
   }
 
   async logout() {
-    await signOut(this.auth);
+    if (this.anynonimous && this.auth.currentUser) {
+      await deleteUser(this.auth.currentUser);
+      this.anynonimous = false;
+    } else {
+      await signOut(this.auth);
+    }
   }
 
   async reauth(pw: string) {
@@ -81,15 +87,6 @@ export class AuthService {
       const credential = EmailAuthProvider.credential(u.email, pw);
       await reauthenticateWithCredential(u, credential).catch((error) => {
         throw error;
-      });
-    }
-  }
-
-  async deleteAccount() {
-    const u = this.auth.currentUser;
-    if (u) {
-      await deleteUser(u).catch((error) => {
-        console.log(error);
       });
     }
   }

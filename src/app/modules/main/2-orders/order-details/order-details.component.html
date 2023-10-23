@@ -21,28 +21,44 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content class="py-4 row d-flex">
-      <div class="col">
+      <div class="col-md">
         <h4>To:</h4>
         <p>{{ u?.firstname }} {{ u?.lastname }}</p>
         <p>{{ address?.street }} {{ address?.house }}</p>
         <p>{{ address?.postalCode }} {{ address?.city }}</p>
       </div>
-      <div class="col">
+      <div class="col-md">
         <h4>Contact:</h4>
         <a
           *ngIf="contact?.mail"
           href="mailto:{{ contact?.mail }}"
           target="_blank"
-          class="d-flex gap-2 align-items-center direct-link"
+          class="d-sm-flex gap-2 align-items-center direct-link d-none"
           ><mat-icon fontIcon="mail"></mat-icon>{{ contact?.mail }}</a
         >
+        <a
+          mat-icon-button
+          *ngIf="contact?.mail"
+          href="mailto:{{ contact?.mail }}"
+          target="_blank"
+          class="d-sm-none"
+          ><mat-icon fontIcon="mail"></mat-icon
+        ></a>
         <a
           *ngIf="contact?.phone"
           href="tel:{{ contact?.phone }}"
           target="_blank"
-          class="d-flex gap-2 align-items-center direct-link"
+          class="d-sm-flex gap-2 align-items-center direct-link d-none"
           ><mat-icon fontIcon="call"></mat-icon>{{ contact?.phone }}</a
         >
+        <a
+          mat-icon-button
+          *ngIf="contact?.phone"
+          href="tel:{{ contact?.phone }}"
+          target="_blank"
+          class="d-sm-none"
+          ><mat-icon fontIcon="call"></mat-icon
+        ></a>
       </div>
     </mat-card-content>
   </mat-card>

@@ -62,6 +62,9 @@ $takeaway-clone-theme: mat.define-light-theme(
 .bg-mat-white {
   background-color: white !important;
 }
+.bg-mat-snow {
+  background-color: #fafafa !important;
+}
 
 .mat-color-accent {
   color: mat.get-color-from-palette($takeaway-clone-accent, 300) !important;

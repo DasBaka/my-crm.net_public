@@ -1,12 +1,19 @@
-<div class="p-md-0">
+<div
+  class="container h-100 w-100 px-0 d-flex align-items-center justify-content-center flex-column">
   <mat-card
     appearance="outlined"
-    class="py-md-2 px-md-5">
-    <mat-card-header>
-      <mat-card-title class="text-center pb-4">
-        Logge dich ein, um dein Essen schneller zu erhalten! <br />
-        Oder registriere dich für das nächste Mal!</mat-card-title
-      >
+    class="border-5">
+    <mat-card-header class="text-center pb-3">
+      <mat-card-title> My-CRM.net - LOGIN</mat-card-title>
+      <mat-card-subtitle>
+        a CRM-Demo for<br />
+        <a
+          class="link"
+          href="https://www.wir-liefern-dein-essen.de"
+          target="_blank"
+          >https://www.wir-liefern-dein-essen.de</a
+        >
+      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <form
@@ -55,25 +62,6 @@
               <strong>Falsches Passwort.</strong>
             </mat-error>
           </mat-form-field>
-          <button
-            *ngIf="!resetted"
-            type="button"
-            mat-flat-button
-            [color]="resetPw ? 'warn' : ''"
-            [disabled]="
-              resetPw &&
-              (loginForm.controls['mail'].value == '' ||
-                !loginForm.controls['mail'].valid)
-            "
-            class="mb-3 mt-1"
-            (click)="$event.preventDefault(); pwReset(); mailInput.focus()">
-            <mat-spinner
-              *ngIf="loading && resetPw"
-              diameter="36"></mat-spinner>
-            <span *ngIf="!loading"
-              >Passwort {{ resetPw ? 'zurücksetzen!' : 'vergessen?' }}</span
-            >
-          </button>
           <span
             *ngIf="resetted"
             class="pb-4 pt-2"
@@ -97,8 +85,12 @@
               [disabled]="loading && loginForm.valid"
               mat-raised-button
               color="accent"
-              type="reset">
-              <span>Zurück</span>
+              type="reset"
+              (click)="guestLogin()">
+              <mat-spinner
+                *ngIf="loading"
+                diameter="36"></mat-spinner>
+              <span *ngIf="!loading">Guest</span>
             </button>
           </mat-card-actions>
         </div>

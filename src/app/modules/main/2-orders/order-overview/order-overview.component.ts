@@ -12,10 +12,11 @@ import {
   OrderOverviewDataSource,
   OrderOverviewItem,
 } from './order-overview-datasource';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map, shareReplay } from 'rxjs';
 import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { CustomerProfile } from 'src/models/interfaces/customer-profile';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-order-overview',
@@ -26,24 +27,36 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<OrderOverviewItem>;
+  private breakpointObserver = inject(BreakpointObserver);
   dataSource = new OrderOverviewDataSource();
   dataService: FirestoreDataService = inject(FirestoreDataService);
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.HandsetPortrait)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
+  mobile!: boolean;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
-    'status',
-    'time',
-    'customer',
-    'items',
-    'price',
-    'buttons',
+    { def: 'status', show: true },
+    { def: 'time', show: true },
+    { def: 'customer', show: true },
+    { def: 'items', show: false },
+    { def: 'price', show: false },
+    { def: 'buttons', show: true },
   ];
   private dataSub!: Subscription;
 
   dblClick = false;
   timeAtClick = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.isHandset$.subscribe((data) => {
+      this.mobile = data;
+    });
+  }
 
   ngAfterViewInit(): void {
     this.dataSub = this.dataService.orderColl$.subscribe((data) => {
@@ -88,5 +101,12 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
     }
     this.timeAtClick = now;
     return;
+  }
+
+  getDisplayedColumns(): string[] {
+    const isMobile = this.mobile;
+    return this.displayedColumns
+      .filter((cd) => !isMobile || cd.show)
+      .map((cd) => cd.def);
   }
 }

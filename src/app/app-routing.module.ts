@@ -13,88 +13,99 @@ import { StatsComponent } from './modules/main/5-restaurant/stats/stats.componen
 import { OrderOverviewComponent } from './modules/main/2-orders/order-overview/order-overview.component';
 import { OrderDetailsComponent } from './modules/main/2-orders/order-details/order-details.component';
 import { LoginComponent } from './modules/login/login.component';
+import { NavigationComponent } from './modules/navigation/navigation.component';
 
 const routes: Routes = [
-  { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
-  {
-    path: 'dishes',
-    children: [
-      {
-        path: 'tags',
-        title: 'Tags | MyCRM',
-        component: TagsComponent,
-      },
-      {
-        path: 'list',
-        title: 'Dishes | MyCRM',
-        component: DishListComponent,
-      },
-      {
-        path: 'list/edit',
-        title: 'Edit dish | MyCRM',
-        component: AddDishComponent,
-      },
-
-      {
-        path: 'add-dish',
-        title: 'Add new dish | MyCRM',
-        component: AddDishComponent,
-      },
-    ],
-  },
-  {
-    path: 'orders',
-    children: [
-      { path: 'board', title: 'My Board | MyCRM', component: OrdersComponent },
-      {
-        path: 'overview',
-        title: 'Overview | MyCRM',
-        component: OrderOverviewComponent,
-      },
-      {
-        path: 'details',
-        title: 'Order details | MyCRM',
-        component: OrderDetailsComponent,
-      },
-    ],
-  },
-  {
-    path: 'users',
-    children: [
-      { path: '', title: 'Users | MyCRM', component: UsersComponent },
-      {
-        path: 'details',
-        title: 'User Details | MyCRM',
-        component: UserDetailsComponent,
-      },
-    ],
-  },
-  {
-    path: 'restaurant',
-    children: [
-      {
-        path: 'responsible',
-        title: 'Restaurant Settings | MyCRM',
-        component: ResponsibleComponent,
-      },
-      {
-        path: 'hours',
-        title: 'Restaurant Opening Hours | MyCRM',
-        component: DeliveryHoursComponent,
-      },
-      {
-        path: 'stats',
-        title: 'Restaurant Overview | MyCRM',
-        component: StatsComponent,
-      },
-    ],
-  },
-  { path: '', component: LoginComponent },
   {
     path: '',
-    redirectTo: '',
-    pathMatch: 'full',
+    component: NavigationComponent,
+    children: [
+      { path: 'home', title: 'Home | MyCRM', component: HomeComponent },
+      {
+        path: 'dishes',
+        children: [
+          {
+            path: 'tags',
+            title: 'Tags | MyCRM',
+            component: TagsComponent,
+          },
+          {
+            path: 'list',
+            title: 'Dishes | MyCRM',
+            component: DishListComponent,
+          },
+          {
+            path: 'list/edit',
+            title: 'Edit dish | MyCRM',
+            component: AddDishComponent,
+          },
+
+          {
+            path: 'add-dish',
+            title: 'Add new dish | MyCRM',
+            component: AddDishComponent,
+          },
+        ],
+      },
+      {
+        path: 'orders',
+        children: [
+          {
+            path: 'board',
+            title: 'My Board | MyCRM',
+            component: OrdersComponent,
+          },
+          {
+            path: 'overview',
+            title: 'Overview | MyCRM',
+            component: OrderOverviewComponent,
+          },
+          {
+            path: 'details',
+            title: 'Order details | MyCRM',
+            component: OrderDetailsComponent,
+          },
+        ],
+      },
+      {
+        path: 'users',
+        children: [
+          { path: '', title: 'Users | MyCRM', component: UsersComponent },
+          {
+            path: 'details',
+            title: 'User Details | MyCRM',
+            component: UserDetailsComponent,
+          },
+        ],
+      },
+      {
+        path: 'restaurant',
+        children: [
+          {
+            path: 'responsible',
+            title: 'Restaurant Settings | MyCRM',
+            component: ResponsibleComponent,
+          },
+          {
+            path: 'hours',
+            title: 'Restaurant Opening Hours | MyCRM',
+            component: DeliveryHoursComponent,
+          },
+          {
+            path: 'stats',
+            title: 'Restaurant Overview | MyCRM',
+            component: StatsComponent,
+          },
+        ],
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+    ],
   },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

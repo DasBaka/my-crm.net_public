@@ -18,6 +18,7 @@ import { FilterTableService } from 'src/app/core/services/filter-table.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/modules/dialog/delete-dialog/delete-dialog.component';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-dish-list',
@@ -25,6 +26,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dish-list.component.scss'],
 })
 export class DishListComponent implements AfterViewInit, OnDestroy {
+  private authService = inject(AuthService);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<DishListItem>;
@@ -36,6 +38,7 @@ export class DishListComponent implements AfterViewInit, OnDestroy {
 
   selected: string = '';
   del = false;
+  anonymous: boolean;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'text', 'cost', 'tags', 'buttons'];
@@ -44,7 +47,9 @@ export class DishListComponent implements AfterViewInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.anonymous = this.authService.anynonimous;
+  }
 
   ngAfterViewInit(): void {
     this.dataSub = this.dataService.dishColl$.subscribe((data) => {

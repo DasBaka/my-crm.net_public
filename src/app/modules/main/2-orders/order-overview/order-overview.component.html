@@ -36,13 +36,16 @@
       <th
         mat-header-cell
         *matHeaderCellDef
-        mat-sort-header>
+        mat-sort-header
+        [class.text-center]="isHandset$ | async">
         Customer
       </th>
       <td
         mat-cell
-        *matCellDef="let row">
+        *matCellDef="let row"
+        [class.text-center]="isHandset$ | async">
         <a
+          *ngIf="!(isHandset$ | async)"
           [routerLink]="row.user.id ? '../../users/details' : null"
           [state]="{ id: row.user.id }"
           [ngClass]="{
@@ -51,6 +54,13 @@
           }"
           >{{ row.user.data.customer.lastname }},
           {{ row.user.data.customer.firstname }}</a
+        >
+        <a
+          mat-icon-button
+          *ngIf="(isHandset$ | async) && row.user.id"
+          [routerLink]="row.user.id ? '../../users/details' : null"
+          [state]="{ id: row.user.id }"
+          ><mat-icon>launch</mat-icon></a
         >
       </td>
     </ng-container>
@@ -114,11 +124,11 @@
 
     <tr
       mat-header-row
-      *matHeaderRowDef="displayedColumns"></tr>
+      *matHeaderRowDef="getDisplayedColumns()"></tr>
     <tr
       mat-row
       (click)="simulateDblClick(row.id); $event.stopPropagation()"
-      *matRowDef="let row; columns: displayedColumns"></tr>
+      *matRowDef="let row; columns: getDisplayedColumns()"></tr>
   </table>
 
   <mat-paginator

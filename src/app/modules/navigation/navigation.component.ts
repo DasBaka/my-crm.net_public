@@ -9,6 +9,7 @@ import {
   Router,
   TitleStrategy,
 } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -20,6 +21,8 @@ export class NavigationComponent implements OnInit {
   route!: ActivatedRoute;
   URLtitle!: string;
   private breakpointObserver = inject(BreakpointObserver);
+  private authService = inject(AuthService);
+  anonymous: boolean;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -32,7 +35,12 @@ export class NavigationComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleStrategy: TitleStrategy
-  ) {}
+  ) {
+    if (!this.authService.auth.currentUser) {
+      this.router.navigate(['login']);
+    }
+    this.anonymous = this.authService.anynonimous;
+  }
 
   ngOnInit() {
     this.router.events
@@ -56,5 +64,11 @@ export class NavigationComponent implements OnInit {
 
   setStep(index: number) {
     this.step = index;
+  }
+
+  async logout() {
+    this.authService.logout().then(() => {
+      this.router.navigate(['login']);
+    });
   }
 }

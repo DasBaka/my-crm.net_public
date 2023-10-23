@@ -2,7 +2,9 @@
   class="mat-elevation-z8"
   [style.filter]="del ? 'brightness(96%) grayscale(4%)' : ''">
   <mat-toolbar class="bg-mat-white h-auto py-2 justify-content-between">
-    <div class="d-flex gap-3">
+    <div
+      class="d-flex gap-3"
+      *ngIf="!anonymous">
       <button
         [disabled]="del"
         mat-raised-button
@@ -104,7 +106,7 @@
         mat-cell
         *matCellDef="let row">
         <button
-          *ngIf="selected == row.id && !del"
+          *ngIf="selected == row.id && !del && !anonymous"
           type="button"
           aria-label="Toggle sidenav"
           (click)="routeEdit(row.id)"
@@ -116,7 +118,7 @@
           >
         </button>
         <button
-          *ngIf="selected == row.id && del"
+          *ngIf="selected == row.id && del && !anonymous"
           type="button"
           aria-label="Toggle sidenav"
           (click)="openDeletionDialog(row.name, 'Dish', row.id)"

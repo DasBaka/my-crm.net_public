@@ -7,6 +7,7 @@ import {
 import { Subscription } from 'rxjs';
 import { FirestoreDataService } from 'src/app/core/services/firestore-data.service';
 import { OrderProfile } from 'src/models/interfaces/order-profile';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-orders',
@@ -17,6 +18,8 @@ export class OrdersComponent implements OnDestroy {
   saving = false;
   private allOrders: Subscription;
   dataService: FirestoreDataService = inject(FirestoreDataService);
+  private authService = inject(AuthService);
+  anonymous: boolean;
 
   new: OrderProfile[] = [];
 
@@ -32,27 +35,32 @@ export class OrdersComponent implements OnDestroy {
       this.process = [];
       this.delivery = [];
       this.done = [];
-      data.forEach((o: OrderProfile) => {
-        switch (o.status) {
-          case 'new':
-            this.new.push(o);
-            break;
-          case 'process':
-            this.process.push(o);
-            break;
-          case 'delivery':
-            this.delivery.push(o);
-            break;
-          case 'done':
-            this.done.push(o);
-            break;
-        }
-      });
+      this.fillArrays(data);
     });
+    this.anonymous = this.authService.anynonimous;
   }
 
   ngOnDestroy(): void {
     this.allOrders.unsubscribe();
+  }
+
+  fillArrays(data: Array<any>) {
+    data.forEach((o: OrderProfile) => {
+      switch (o.status) {
+        case 'new':
+          this.new.push(o);
+          break;
+        case 'process':
+          this.process.push(o);
+          break;
+        case 'delivery':
+          this.delivery.push(o);
+          break;
+        case 'done':
+          this.done.push(o);
+          break;
+      }
+    });
   }
 
   async drop(event: CdkDragDrop<OrderProfile[]>) {
