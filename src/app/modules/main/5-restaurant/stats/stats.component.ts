@@ -36,8 +36,12 @@ export class StatsComponent {
   }
 
   filterOrderLength(status: string) {
-    return this.orders.filter((item) => {
-      item.status == status;
-    }).length;
+    if (this.orders) {
+      return this.orders.filter((item) => {
+        return item.status == status;
+      }).length;
+    } else {
+      return;
+    }
   }
 }
