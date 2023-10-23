@@ -16,7 +16,9 @@
       *ngFor="let item of new"
       [cdkDragDisabled]="saving"
       cdkDrag>
-      <mat-list role="list">
+      <mat-list
+        role="list"
+        class="mx-3">
         <div
           matListItemTitle
           class="d-flex align-items gap-2">
@@ -71,7 +73,7 @@
         </mat-list-item>
         <div
           matListItemLine
-          class="text-end pb-3"
+          class="text-end pb-3 me-3"
           [ngClass]="getTimePriority(item.timestamp, 'process')">
           TBD: {{ remainingTime(item.timestamp) }}
         </div>
@@ -124,7 +126,7 @@
         </mat-list-item>
         <div
           matListItemLine
-          class="text-end"
+          class="text-end me-3"
           [ngClass]="getTimePriority(item.timestamp, 'delivery')">
           TBD: {{ remainingTime(item.timestamp) }}
         </div>
@@ -151,7 +153,9 @@
       *ngFor="let item of done"
       [cdkDragDisabled]="saving"
       cdkDrag>
-      <mat-list role="list">
+      <mat-list
+        role="list"
+        class="mx-3">
         <div matListItemLine>Ordered: {{ getDate(item.timestamp) }}</div>
         <div
           *ngFor="let dish of item.cart.order"

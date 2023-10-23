@@ -7,17 +7,68 @@
       mat-subheader>
       Responsible
     </div>
-    <mat-list-item role="listitem">Item 1</mat-list-item>
+    <mat-list-item role="listitem"
+      >{{ restaurant?.responsible?.firstname }}
+      {{ restaurant?.responsible?.lastname }}</mat-list-item
+    >
+    <mat-list-item role="listitem"
+      >{{ restaurant?.address?.street }}
+      {{ restaurant?.address?.house }}</mat-list-item
+    >
+    <mat-list-item role="listitem"
+      >{{ restaurant?.address?.postalCode }}
+      {{ restaurant?.address?.city }}</mat-list-item
+    >
+    <mat-divider class="m-3 mb-4"> </mat-divider>
+    <div
+      class="subheader"
+      mat-subheader>
+      Opening hours
+    </div>
+
+    <mat-list-item
+      *ngFor="let day of restaurant?.hours"
+      role="listitem"
+      ><div class="row">
+        <span class="col">{{ day.day }}</span
+        ><span class="col">{{
+          day.isOpen ? day.time.from + ' - ' + day.time.to : 'Closed'
+        }}</span>
+      </div></mat-list-item
+    >
   </mat-list>
 
   <mat-list
     role="list"
-    class="col-md second-list">
+    class="col-md second-list w-50">
     <div
       class="subheader"
       mat-subheader>
-      Responsible
+      Orders
     </div>
-    <mat-list-item role="listitem">Item 1</mat-list-item>
+    <mat-list-item role="listitem">Total: {{ orders?.length }}</mat-list-item>
+    <mat-list-item role="listitem">New: {{ orders?.length }}</mat-list-item>
+    <mat-list-item role="listitem"
+      >In Process: {{ orders?.length }}</mat-list-item
+    >
+    <mat-list-item role="listitem"
+      >In Delivery: {{ orders?.length }}</mat-list-item
+    >
+    <mat-list-item role="listitem">Done: {{ orders?.length }}</mat-list-item>
+    <mat-divider class="m-3 mb-4"> </mat-divider>
+    <div
+      class="subheader"
+      mat-subheader>
+      Other
+    </div>
+    <mat-list-item role="listitem"
+      >User: {{ users?.length }} users in total</mat-list-item
+    >
+    <mat-list-item role="listitem"
+      >Dishes: {{ dishes?.length }} dishes in total</mat-list-item
+    >
+    <mat-list-item role="listitem"
+      >Tags: {{ tags?.length }} tags in total</mat-list-item
+    >
   </mat-list>
 </div>

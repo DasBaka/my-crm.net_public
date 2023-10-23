@@ -15,7 +15,14 @@ export class Restaurant implements RestaurantProfile {
     mail: string | null;
     phone: string | null;
   };
-  hours: Array<{}>;
+  hours: Array<{
+    day: string;
+    isOpen: boolean;
+    time: {
+      from: string;
+      to: string;
+    };
+  }>;
 
   constructor(data?: RestaurantProfile) {
     this.responsible = data?.responsible ?? {
@@ -32,7 +39,15 @@ export class Restaurant implements RestaurantProfile {
       mail: null,
       phone: null,
     };
-    this.hours = data?.hours ?? this.fillWithDays();
+    this.hours =
+      (data?.hours as Array<{
+        day: string;
+        isOpen: boolean;
+        time: {
+          from: string;
+          to: string;
+        };
+      }>) ?? this.fillWithDays();
   }
 
   fillWithDays() {

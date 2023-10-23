@@ -13,5 +13,12 @@ export interface RestaurantProfile {
     mail: string | null;
     phone: string | null;
   };
-  hours: Array<{}>;
+  hours: Array<{
+    day: string;
+    isOpen: boolean;
+    time: {
+      from: string;
+      to: string;
+    };
+  }>;
 }
