@@ -47,14 +47,18 @@
       Orders
     </div>
     <mat-list-item role="listitem">Total: {{ orders?.length }}</mat-list-item>
-    <mat-list-item role="listitem">New: {{ orders?.length }}</mat-list-item>
     <mat-list-item role="listitem"
-      >In Process: {{ orders?.length }}</mat-list-item
+      >New: {{ filterOrderLength('new') }}</mat-list-item
     >
     <mat-list-item role="listitem"
-      >In Delivery: {{ orders?.length }}</mat-list-item
+      >In Process: {{ filterOrderLength('process') }}</mat-list-item
     >
-    <mat-list-item role="listitem">Done: {{ orders?.length }}</mat-list-item>
+    <mat-list-item role="listitem"
+      >In Delivery: {{ filterOrderLength('delivery') }}</mat-list-item
+    >
+    <mat-list-item role="listitem"
+      >Done: {{ filterOrderLength('done') }}</mat-list-item
+    >
     <mat-divider class="m-3 mb-4"> </mat-divider>
     <div
       class="subheader"

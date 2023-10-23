@@ -34,4 +34,10 @@ export class StatsComponent {
       this.orders = data;
     });
   }
+
+  filterOrderLength(status: string) {
+    return this.orders.filter((item) => {
+      item.status == status;
+    }).length;
+  }
 }
