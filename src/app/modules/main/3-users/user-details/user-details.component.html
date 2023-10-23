@@ -12,19 +12,35 @@
       <mat-card-title-group class="justify-content-end">
         <mat-card-title>
           <a
+            *ngIf="contact?.mail"
             href="mailto:{{ contact?.mail }}"
             target="_blank"
-            *ngIf="contact?.mail"
-            class="d-flex gap-2 align-items-center direct-link justify-content-end"
+            class="d-md-flex gap-2 align-items-center justify-content-end direct-link d-none"
             ><mat-icon fontIcon="mail"></mat-icon>{{ contact?.mail }}</a
           >
           <a
+            mat-icon-button
+            *ngIf="contact?.mail"
+            href="mailto:{{ contact?.mail }}"
+            target="_blank"
+            class="d-md-none"
+            ><mat-icon fontIcon="mail"></mat-icon
+          ></a>
+          <a
+            *ngIf="contact?.phone"
             href="tel:{{ contact?.phone }}"
             target="_blank"
-            *ngIf="contact?.phone"
-            class="d-flex gap-2 align-items-center direct-link justify-content-end"
+            class="d-md-flex gap-2 align-items-center justify-content-end direct-link d-none"
             ><mat-icon fontIcon="call"></mat-icon>{{ contact?.phone }}</a
           >
+          <a
+            mat-icon-button
+            *ngIf="contact?.phone"
+            href="tel:{{ contact?.phone }}"
+            target="_blank"
+            class="d-md-none"
+            ><mat-icon fontIcon="call"></mat-icon
+          ></a>
         </mat-card-title>
       </mat-card-title-group>
     </mat-card-header>

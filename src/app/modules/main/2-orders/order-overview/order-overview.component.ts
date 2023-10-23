@@ -41,7 +41,7 @@ export class OrderOverviewComponent implements AfterViewInit, OnDestroy {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
     { def: 'status', show: true },
-    { def: 'time', show: true },
+    { def: 'time', show: false },
     { def: 'customer', show: true },
     { def: 'items', show: false },
     { def: 'price', show: false },
