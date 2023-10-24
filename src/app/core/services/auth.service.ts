@@ -14,6 +14,7 @@ import {
   reauthenticateWithCredential,
   signInAnonymously,
 } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,16 +27,18 @@ export class AuthService {
   currentUser: User | null = null;
   anynonimous = false;
 
-  constructor(private allFirebaseApps: FirebaseApps) {
+  constructor(private allFirebaseApps: FirebaseApps, private router: Router) {
     let app = this.findApp();
     if (app) {
       this.auth = getAuth(app);
       this.user$ = user(this.auth);
     }
+
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.userid = user.uid;
       } else {
+        this.router.navigate(['login']);
         this.logout();
       }
     });

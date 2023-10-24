@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   step = 0;
   route!: ActivatedRoute;
   URLtitle!: string;
@@ -46,12 +46,6 @@ export class NavigationComponent implements OnInit {
           .split(' | ')[0];
         this.URLtitle = 'MyCRM - ' + string;
       });
-  }
-
-  ngOnInit() {
-    if (!this.authService.auth.currentUser) {
-      this.router.navigate(['login']);
-    }
   }
 
   getChild(activatedRoute: ActivatedRoute): any {
